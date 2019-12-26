@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    public User getUserById(int id);
+    User getUserById(int id);
 
-    public User getUserByEmail(String email);
+    User getUserByEmail(String email);
 
-    public User getUserByEmailAndPassword(String email, String password);
+    User getUserByEmailAndPassword(String email, String password);
 
-    public void addUser(String email, String password);
+    void addUser(String email, String password);
 
-    public void modifyUserInformation(String id, String name, String sex, int age);
+    void modifyUserInformation(String id, String name, String sex, int age);
 }

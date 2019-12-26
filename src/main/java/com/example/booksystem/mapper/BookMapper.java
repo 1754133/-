@@ -1,10 +1,7 @@
 package com.example.booksystem.mapper;
 
 import com.example.booksystem.entity.Book;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +23,7 @@ public interface BookMapper {
 
     @Select("select * from book where name like '%${value}%'")
     List<Book> getBooksByKeywords(String keywords);
+
+    @Update("update book set remain=#{remain} where id=#{id}")
+    void updateBookRemain(int id, int remain);
 }
