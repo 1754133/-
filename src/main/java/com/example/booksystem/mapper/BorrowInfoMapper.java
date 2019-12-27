@@ -1,10 +1,7 @@
 package com.example.booksystem.mapper;
 
 import com.example.booksystem.entity.BorrowInfo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -23,5 +20,13 @@ public interface BorrowInfoMapper {
     void returnBook(Date returnDate);
 
     @Select("select * from borrow_info")
+    @Results({
+            @Result(column = "book_id", property = "bookId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "borrow_date", property = "borrowDate"),
+            @Result(column = "sh_return_date", property = "shReturnDate"),
+            @Result(column = "return_date", property = "returnDate")
+    })
     List<BorrowInfo> getBorrowInfo();
+
 }

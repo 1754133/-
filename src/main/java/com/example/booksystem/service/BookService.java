@@ -13,9 +13,4 @@ public interface BookService {
 
     List<Map<String, Object>> getBooksByKeywords(String keywords);
 
-    //借书
-    void borrowBook(int bookId, int userId);
-
-    //查看借阅信息
-    List<Map<String, Object>> getBorrowInfo();
 }

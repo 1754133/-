@@ -29,8 +29,4 @@ public class BookController {
         return bookService.getBooksByKeywords(keywords);
     }
 
-    @PostMapping(value = "/borrowinfo")
-    public void borrowBook(@RequestParam int bookId, @RequestParam int userId){
-        bookService.borrowBook(bookId, userId);
-    }
 }
