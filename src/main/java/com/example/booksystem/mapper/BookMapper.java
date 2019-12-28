@@ -29,4 +29,7 @@ public interface BookMapper {
 
     @Update("update book set remain=#{remain} where id=#{id}")
     void updateBookRemain(int id, int remain);
+
+    @Update("update book set name=#{name},press=#{press},author=#{author},shelfid=#{shelfId},synopsis=#{synopsis},typeid=#{typeId},remain=#{remain},isbn=#{isbn} where id=#{id}")
+    void updateBookInfo(int id, String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn);
 }

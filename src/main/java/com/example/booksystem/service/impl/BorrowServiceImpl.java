@@ -45,6 +45,10 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowInfoMapList;
     }
 
+    public boolean ifBorrowed(int bookId, int userId){
+        return borrowInfoMapper.getBorrowInfoByBookIdAndUserId(bookId, userId) == null;
+    }
+
     private Map<String, Object> getBorrowInfoMap(BorrowInfo borrowInfo){
         int bookId = borrowInfo.getBookId();
         int userId = borrowInfo.getUserId();
@@ -52,10 +56,11 @@ public class BorrowServiceImpl implements BorrowService {
         User user = userMapper.getById(userId);
         Map<String, Object> map = new HashMap<>();
         map.put("bookName", book.getName());
+        map.put("isbn", book.getIsbn());
         map.put("userEmail", user.getEmail());
         map.put("borrowDate", borrowInfo.getBorrowDate());
         map.put("shReturnDate", borrowInfo.getShReturnDate());
-        map.put("returnDate", borrowInfo.getReturnDate());
+        map.put("renew", borrowInfo.isRenew());
         return map;
     }
 

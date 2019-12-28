@@ -16,17 +16,21 @@ public interface BorrowInfoMapper {
     @Update("update borrow_info set sh_return_date=#{shReturnDate}, renew=#{renew}")
     void renewBook(Date shReturnDate, boolean renew);
 
-    @Update("update borrow_info set return_date=#{returnDate}")
-    void returnBook(Date returnDate);
-
     @Select("select * from borrow_info")
     @Results({
             @Result(column = "book_id", property = "bookId"),
             @Result(column = "user_id", property = "userId"),
             @Result(column = "borrow_date", property = "borrowDate"),
             @Result(column = "sh_return_date", property = "shReturnDate"),
-            @Result(column = "return_date", property = "returnDate")
     })
     List<BorrowInfo> getBorrowInfo();
 
+    @Select("select * from borrow_info where book_id=#{bookId} and user_id=#{userId}")
+    @Results({
+            @Result(column = "book_id", property = "bookId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "borrow_date", property = "borrowDate"),
+            @Result(column = "sh_return_date", property = "shReturnDate"),
+    })
+    BorrowInfo getBorrowInfoByBookIdAndUserId(int bookId, int userId);
 }

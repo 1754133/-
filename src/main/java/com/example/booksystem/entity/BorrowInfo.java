@@ -8,7 +8,6 @@ public class BorrowInfo {
     private int userId;
     private Date borrowDate;
     private Date shReturnDate;
-    private Date returnDate;
     private boolean renew;
 
     public int getId() {
@@ -49,14 +48,6 @@ public class BorrowInfo {
 
     public void setShReturnDate(Date shReturnDate) {
         this.shReturnDate = shReturnDate;
-    }
-
-    public Date getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
     }
 
     public boolean isRenew() {

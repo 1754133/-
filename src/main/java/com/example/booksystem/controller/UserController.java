@@ -24,6 +24,11 @@ public class UserController {
         return userService.getUserByEmailAndPassword(email, password);
     }
 
+    @GetMapping(value = "/email/{email}")
+    public User getUserByEmail(@PathVariable("email") String email){
+        return userService.getUserByEmail(email);
+    }
+
     @PutMapping(value = "/information")
     public void modifyUserInformation(@RequestParam String id, @RequestParam String name, @RequestParam String sex, @RequestParam int age){
         userService.modifyUserInformation(id, name, sex, age);

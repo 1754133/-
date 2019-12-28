@@ -59,6 +59,10 @@ public class BookServiceImpl implements BookService {
         return false;
     }
 
+    public void updateBookInfo(int id, String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn){
+        bookMapper.updateBookInfo(id, name, press, author, shelfId, synopsis, typeId, remain, isbn);
+    }
+
     //封装book详细的结果
     private Map<String, Object> getBookMap(Book book){
         int typeId = book.getTypeid();
