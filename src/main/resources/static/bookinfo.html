@@ -8,25 +8,47 @@
 </head>
 <body>
 
-<div id="mainbox">
+<div id="mainbox"><center>
     <p>书目信息</p>
     <table>
         <tr>
-            <th>书名</th>
+            <th>书名:</th>
             <th id="bookname"></th>
         </tr>
         <tr>
-            <th>作者</th>
+            <th>作者:</th>
             <th id="author"></th>
         </tr>
+        <tr>
+            <th>出版社：</th>
+            <th id="press"></th>
+        </tr>
+        <tr>
+            <th>书架号：</th>
+            <th id="shelfId"></th>
+        </tr>
+        <tr>
+            <th>类别：</th>
+            <th id="type"></th>
+        </tr>
+        <tr>
+            <th>简介:</th>
+            <th id="synopsis"></th>
+        </tr>
+        <tr>
+            <th>库存：</th>
+            <th id="remain"></th>
+        </tr>
     </table>
-
+    <div id="button"></div>
+</center>
 </div>
 
 <script type="text/javascript">
-    var bookId = getBookId()
-    function getBookId(){
-        var name="bookId=";
+    var bookId = getCookie("bookId")
+    var userId=getCookie("id")
+    function getCookie(cname){
+        var name= cname+"=";
         var ca=document.cookie.split(';');
         for(var i=0;i<ca.length;i++){
             var c=ca[i].trim();
@@ -36,17 +58,48 @@
         return "";
     }
     console.log(bookId)
+    console.log(userId)
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/books/" + bookId,
         dateType:"json",
         success:function (result) {
             console.log(result)
-            console.log(result.author)
             document.getElementById("bookname").innerText = result.name
             document.getElementById("author").innerText=result.author
+            document.getElementById("press").innerText=result.press
+            document.getElementById("shelfId").innerText=result.shelfId
+            document.getElementById("type").innerText=result.type
+            document.getElementById("synopsis").innerText=result.synopsis
+            document.getElementById("remain").innerText=result.remain
+            if(result.remain==0){
+                var _button="<a class=\"button black\" onclick=\"Reserve("+bookId+")\">预定</a>\n"
+            }
+            else{
+                var _button="<a class=\"button black\" onclick=\"Borrow("+bookId+")\">借书</a>\n"
+            }
+            $("#button").html(_button);
         }
     })
+
+    function Borrow(bookId) {
+        console.log(bookId)
+        console.log(userId)
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/borrow/borrowinfo",
+            data:{
+                bookId:bookId,
+                userId:userId
+            },
+            dataType:"json",
+        });
+    }
+
+    function Reserve(bookId) {
+
+    }
+
 </script>
 </body>
 </html>

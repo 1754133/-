@@ -12,5 +12,6 @@ public interface BookService {
     List<Map<String, Object>> getBooksByType(String typeName);
 
     List<Map<String, Object>> getBooksByKeywords(String keywords);
-
+    //添加书籍
+    boolean addBook(String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn);
 }

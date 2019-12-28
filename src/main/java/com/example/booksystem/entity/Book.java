@@ -16,18 +16,8 @@ public class Book {
     private int typeid;
     //剩余数量
     private int remain;
-
-    public Book(){}
-
-    public Book(int id, String name, String press, String author, String synopsis, int typeid, int remain) {
-        this.id = id;
-        this.name = name;
-        this.press = press;
-        this.author = author;
-        this.synopsis = synopsis;
-        this.typeid = typeid;
-        this.remain = remain;
-    }
+    //isbn号
+    private String isbn;
 
     public int getId() {
         return id;
@@ -91,5 +81,13 @@ public class Book {
 
     public void setRemain(int remain) {
         this.remain = remain;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }

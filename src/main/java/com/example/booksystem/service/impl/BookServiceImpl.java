@@ -51,6 +51,14 @@ public class BookServiceImpl implements BookService {
         return bookMapList;
     }
 
+    public boolean addBook(String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn){
+        if (bookMapper.getBookByIsbn(isbn) == null){
+            bookMapper.addBook(name, press, author, shelfId, synopsis, typeId, remain, isbn);
+            return true;
+        }
+        return false;
+    }
+
     //封装book详细的结果
     private Map<String, Object> getBookMap(Book book){
         int typeId = book.getTypeid();
@@ -63,6 +71,7 @@ public class BookServiceImpl implements BookService {
         map.put("synopsis", book.getSynopsis());//简介
         map.put("type", typeMapper.getBookType(typeId));
         map.put("remain", book.getRemain());
+        map.put("isbn", book.getIsbn());
         return map;
     }
 

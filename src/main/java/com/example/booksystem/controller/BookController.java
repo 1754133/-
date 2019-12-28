@@ -29,4 +29,10 @@ public class BookController {
         return bookService.getBooksByKeywords(keywords);
     }
 
+    @PostMapping
+    public boolean addBook(@RequestParam String name, @RequestParam String press, @RequestParam String author, @RequestParam String shelfId, @RequestParam String synopsis, @RequestParam int typeId, @RequestParam int remain, @RequestParam String isbn){
+        return bookService.addBook(name, press, author, shelfId, synopsis, typeId, remain, isbn);
+    }
+
+
 }
