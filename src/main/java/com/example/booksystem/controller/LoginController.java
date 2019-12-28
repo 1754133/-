@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/login")
 public class LoginController {
@@ -16,8 +19,15 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping
-    public User login(@RequestParam String email, @RequestParam String password){
-        return userService.getUserByEmailAndPassword(email, password);
+    public Map<String, Object> login(@RequestParam String email, @RequestParam String password){
+        Map<String, Object> map = new HashMap<>();
+        if (userService.getUserByEmailAndPassword(email, password) != null){
+            map.put("status", true);
+            map.put("userId", userService.getUserByEmailAndPassword(email, password).getId());
+        }else {
+            map.put("status", false);
+        }
+        return map;
     }
 
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="mainbox">
+    <p>书目信息</p>
+    <table>
+        <tr>
+            <th>书名</th>
+            <th id="bookname"></th>
+        </tr>
+        <tr>
+            <th>作者</th>
+            <th id="author"></th>
+        </tr>
+    </table>
+
+</div>
+
+<script type="text/javascript">
+    var bookId = getBookId()
+    function getBookId(){
+        var name="bookId=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c=ca[i].trim();
+            if(c.indexOf(name)==0)
+                return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    console.log(bookId)
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/books/" + bookId,
+        dateType:"json",
+        success:function (result) {
+            console.log(result)
+            console.log(result.author)
+            document.getElementById("bookname").innerText = result.name
+            document.getElementById("author").innerText=result.author
+        }
+    })
+</script>
+</body>
+</html>

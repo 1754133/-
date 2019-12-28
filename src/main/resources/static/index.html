@@ -2,43 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>图书管理系统</title>
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<input style="width:200px" type="text" value="" id="email" /><br/>
-<input style="width:200px" type="text" value="" id="password" />
-<button type="button" onclick="login()">登陆</button><br/><br/>
-<button type="button" onclick="toregister()">注册</button>
+<div class="header">
+    <h1>图书管理系统</h1>
+    <p>请登录使用。</p>
+</div>
 
-<script type="text/javascript">
-    function login(){
-        var email = $("#email").val();
-        var password = $("#password").val();
-        $.ajax({
-            type:"POST",
-            url:"http://localhost:8080/login",
-            data:{
-                email:email,
-                password:password
-            },
-            dataType:"json",
-            success:function(result){
-                document.cookie="id=" + result.id + ";path=/";
-                alert("登陆成功!");
-                window.open("mainpage.html","_self");
-            },
-            error:function(err){
-                alert("账号或密码错误，请重新输入!");
-                window.location.reload();
-            }
-        });
-    }
-
-    function toregister(){
-        window.open("register.html","_self");
-    }
-
-</script>
+<div class="navbar">
+    <a href="login.html">学生登录</a>
+    <a href="#">管理员登录</a>
+    <a href="register.html">学生注册</a>
+    <a href="#" class="right">帮助</a>
+</div>
 </body>
 </html>

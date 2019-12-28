@@ -60,7 +60,7 @@ public class BookServiceImpl implements BookService {
         map.put("press", book.getPress());
         map.put("author", book.getAuthor());
         map.put("shelfId", book.getShelfId());
-        map.put("synopsis", book.getSynopsis());
+        map.put("synopsis", book.getSynopsis());//简介
         map.put("type", typeMapper.getBookType(typeId));
         map.put("remain", book.getRemain());
         return map;

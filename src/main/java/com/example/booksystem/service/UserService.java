@@ -13,6 +13,7 @@ public interface UserService {
 
     User getUserByEmailAndPassword(String email, String password);
 
+
     void addUser(String email, String password);
 
     void modifyUserInformation(String id, String name, String sex, int age);

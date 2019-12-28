@@ -3,56 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>图书管理系统</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-<h1>注册</h1>
-<input style="width:200px" type="text" value="" id="email" placeholder="请输入有效邮箱"/><button type="button" onclick="checkemail()">发送验证码</button><br/>
-<input style="width:200px" type="text" value="" id="checkcode" placeholder="请输入验证码"/><button type="button" onclick="checkcode()">验证验证码</button><br/>
-<input style="width:200px" type="text" value="" id="password" placeholder="请输入密码"/><br/>
-<button type="button" onclick="register()">注册</button><br/><br/>
+
+<div class="header">
+    <h1>图书管理系统</h1>
+    <p>请先注册。</p>
+</div>
+
+<div class="navbar">
+    <a href="login.html">学生登录</a>
+    <a href="#">管理员登录</a>
+    <a style="background-color: #dddddd;color: black" href="register.html" >学生注册</a>
+    <a href="#" class="right">帮助</a>
+</div>
+
+<center>
+    <div class="row">
+        <div class="side">
+            <h2>学生注册</h2>
+            <h5 style="text-align:left;padding-left:37%;">请输入邮箱:</h5>
+            <input style="width:400px;height:40px" type="text" id="email" />
+            <br/><br/><a class="button black medium" id="send-email">发送验证码</a><br/>
+            <h5 style="text-align:left;padding-left:37%;">请输入验证码：</h5>
+            <input style="width:400px;height:40px" type="text" id="checkcode" />
+            <h5 style="text-align:left;padding-left:37%;">请输入密码：</h5>
+            <input style="width:400px;height:40px" type="password" id="password" />
+            <br/><br/><a class="button black" onclick="register()">注册</a>
+            <br/><br/>
+        </div>
+
+    </div></center>
+<!--<h1>注册</h1>-->
+<!--<input style="width:200px" type="text" value="" id="email" placeholder="请输入有效邮箱"/><button type="button" onclick="checkemail()">发送验证码</button><br/>-->
+<!--<input style="width:200px" type="text" value="" id="checkcode" placeholder="请输入验证码"/><button type="button" onclick="checkcode()">验证验证码</button><br/>-->
+<!--<input style="width:200px" type="text" value="" id="password" placeholder="请输入密码"/><br/>-->
+<!--<button type="button" onclick="register()">注册</button><br/><br/>-->
 
 <script type="text/javascript">
-    var code = "";
-    function checkemail() {
-        var email = $("#email").val();
-        $.ajax({
-            type:"POST",
-            url:"http://localhost:8080/register/checkcode",
-            data:{
-                email:email
-            },
-            dataType:"json",
-            success:function(result){
-                alert("请求成功");
-                console.log(result);
-                /*
-                if(result == "fail"){
-                    alert("邮箱已经被注册，请重新输入!")
-                }
-                else{
-                    alert("邮箱可以使用!")
-                    //var checkcode = $("#checkcode").val();
-                    code = result;
-                }
-                */
-            },
-            error:function (err) {
-                alert("请求失败");
-                console.log(err);
-            }
-        });
-    }
 
-    function checkcode(){
-        var checkcode = $("#checkcode").val();
-        if (code == checkcode){
-            alert("验证码正确!");
+    document.getElementById("send-email").onclick = function()
+    {
+        checkemail(this);
+    }
+    var waitTime=0;
+    var code = "";
+    function checkemail(ele) {
+        if (waitTime!=0){
+            alert("邮件已发送，请稍后再重试");
         }
         else{
-            alert("验证码错误，请输入正确的验证码!");
+            var email = $("#email").val();
+            $.ajax({
+                type:"POST",
+                url:"http://localhost:8080/register/checkcode",
+                data:{
+                    email:email
+                },
+                dataType:"json",
+                success:function(result){
+                    console.log(typeof result);
+                    console.log(result);
+                    if(!result.status){
+                        alert("邮箱已经被注册，请重新输入!");
+                    }
+                    else{
+                        alert("邮箱可以使用!");
+                        //var checkcode = $("#checkcode").val();
+                        code = result.checkcode;
+                        waitTime=30;
+                        time(ele);
+                    }
+                }
+            });
         }
     }
+    function time(ele) {
+        if (waitTime == 0) {
+            ele.disabled=false;
+            ele.innerHTML ="发送验证码";
+            waitTime = 30;
+        }
+        else {
+            ele.disabled=true;
+            ele.innerHTML = waitTime + "秒后可以重新发送";
+            waitTime--;
+            setTimeout(function() {
+                time(ele)
+            }, 1000)
+        }
+    }
+
 
     function register(){
         var checkcode = $("#checkcode").val();
@@ -73,7 +116,7 @@
                 success:function(result){
                     if (result){
                         alert("注册成功，点击确定即可跳转到登录页!");
-                        window.open("index.html","_self");
+                        window.open("login.html","_self");
                     }
                 }
             });

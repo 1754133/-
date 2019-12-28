@@ -3,12 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>图书管理系统</title>
+
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
+<div class="header">
+    <h1>欢迎使用图书管理系统</h1>
+</div>
+
+<div class="navbar">
+    <a href="index.html">返回主页</a>
+    <a href="#" class="right">帮助</a>
+    <a href="index.html" class="right">注销</a>
+</div>
+
 <body>
-<h1>主页</h1>
-<button type="button" onclick="showUser()">显示当前登陆的用户信息</button>
-<button type="button" onclick="logout()">注销</button>
+
+<ul>
+    <li><a class="active" href="#">读者系统主页</a></li>
+    <li><a href="querybook.html">查询图书信息</a></li>
+    <li><a href="#">个人信息</a></li>
+    <li><a href="#">我的借阅</a></li>
+</ul>
+
+<div style="margin-left:15%;padding:1px 16px;height:1000px;">
+
+</div>
+
 <script type="text/javascript">
     function logout() {
         clearCookie();

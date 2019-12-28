@@ -32,8 +32,9 @@ public class RegisterController {
         else{
             String checkCode = String.valueOf(new Random().nextInt(799999) + 100000);
             String message = "您的注册验证码为："+checkCode;
+            mailService.sendSimpleMail(email, "注册验证码", message);
             map.put("status", true);
-            map.put("checkcode", "hjxczxcz");
+            map.put("checkcode", checkCode);
             return map;
         }
     }
