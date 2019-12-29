@@ -24,7 +24,7 @@
     <li><a class="active" href="myborrow.html">我的借阅</a></li>
 </ul>
 <div style="margin-left:15%;padding:1px 16px;height:1000px;"><br/><br/><br/>
-    <center><table id="borrowlist" border="1" width=80%>
+    <center><table id="borrowlist" border="1" width=90%>
         <thead>
         <tr>
             <th>书名</th>
@@ -53,9 +53,27 @@
         return "";
     }
     $.ajax({
-
+        type:"GET",
+        url:"http://localhost:8080/borrow/borrowinfo/" + userId,
+        dataType:"json",
+        success:function (result) {
+            console.log(result)
+            createlist(result)
+        }
         }
     )
+    function createlist(data) {
+        var str="";
+        for(var i=0;i<data.length;i++){
+            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+"</center></td><td width=20%><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+data[i].shReturnDate+"</center></td><td width=10%><center>"+"<a class=\"button\" onclick=\"renew()\">续借</a>"+"</center></td></tr>";
+            console.log(str)
+        }
+        $("#bldata").html(str);
+        $("#borrowlist").show();
+    }
+    function renew() {
+        
+    }
 </script>
 </body>
 </html>

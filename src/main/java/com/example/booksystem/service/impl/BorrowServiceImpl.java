@@ -10,6 +10,8 @@ import com.example.booksystem.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -62,6 +64,14 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowInfoMapper.getBorrowInfoByBookIdAndUserId(bookId, userId) == null;
     }
 
+    public void renew(int id, String shReturnDate) throws ParseException {
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        gregorianCalendar.setTime(dateFormat.parse(shReturnDate));
+        gregorianCalendar.add(5, +15);
+        borrowInfoMapper.renewBook(id,dateFormat.format(gregorianCalendar.getTime()), false);
+    }
+
     //包装返回结果
     private Map<String, Object> getBorrowInfoMap(BorrowInfo borrowInfo){
         int bookId = borrowInfo.getBookId();
@@ -69,6 +79,8 @@ public class BorrowServiceImpl implements BorrowService {
         Book book = bookMapper.getBookById(bookId);
         User user = userMapper.getById(userId);
         Map<String, Object> map = new HashMap<>();
+        map.put("id", borrowInfo.getId());
+        map.put("bookId", bookId);
         map.put("bookName", book.getName());
         map.put("author", book.getAuthor());
         map.put("isbn", book.getIsbn());

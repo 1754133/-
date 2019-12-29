@@ -2,6 +2,7 @@ package com.example.booksystem.service;
 
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,5 +19,7 @@ public interface BorrowService {
 
     //检查是否已有借阅信息
     boolean ifBorrowed(int bookId, int userId);
+
+    void renew(int id, String shReturnDate) throws ParseException;
 
 }

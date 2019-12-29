@@ -4,6 +4,7 @@ import com.example.booksystem.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,5 +32,10 @@ public class BorrowController {
     @GetMapping(value = "/borrowinfo/{bookId}/{userId}")
     public boolean ifBorrowed(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
         return borrowService.ifBorrowed(bookId, userId);
+    }
+
+    @PutMapping(value = "/borrowinfo/{id}")
+    public void renew(@PathVariable("id") int id, @RequestParam String shReturnDate) throws ParseException {
+        borrowService.renew(id, shReturnDate);
     }
 }

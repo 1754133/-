@@ -11,8 +11,8 @@ public interface BorrowInfoMapper {
     @Insert("insert into borrow_info(book_id,user_id,borrow_date,sh_return_date,renew) values(#{bookId},#{userId},#{borrowDate},#{shReturnDate},#{renew})")
     void addBorrowInfo(int bookId, int userId, String borrowDate, String shReturnDate, boolean renew);
 
-    @Update("update borrow_info set sh_return_date=#{shReturnDate}, renew=#{renew}")
-    void renewBook(String shReturnDate, boolean renew);
+    @Update("update borrow_info set sh_return_date=#{shReturnDate}, renew=#{renew} where id=#{id}")
+    void renewBook(int id, String shReturnDate, boolean renew);
 
     @Select("select * from borrow_info")
     @Results({
