@@ -1,8 +1,6 @@
 package com.example.booksystem.service.impl;
 
 import com.example.booksystem.entity.Book;
-import com.example.booksystem.entity.BorrowInfo;
-import com.example.booksystem.entity.User;
 import com.example.booksystem.mapper.BookMapper;
 import com.example.booksystem.mapper.BorrowInfoMapper;
 import com.example.booksystem.mapper.TypeMapper;
@@ -10,6 +8,7 @@ import com.example.booksystem.mapper.UserMapper;
 import com.example.booksystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.*;
 
@@ -65,7 +64,7 @@ public class BookServiceImpl implements BookService {
 
     //封装book详细的结果
     private Map<String, Object> getBookMap(Book book){
-        int typeId = book.getTypeid();
+        int typeId = book.getTypeId();
         Map<String, Object> map = new HashMap<>();
         map.put("bookId", book.getId());
         map.put("name", book.getName());

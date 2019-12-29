@@ -59,10 +59,22 @@
     }
     console.log(bookId)
     console.log(userId)
+
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/borrowinfo/"+bookId+"/"+userId,
+        dataType:"json",
+        success:function (result) {
+            console.log(result)
+
+        }
+        }
+    )
+
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/books/" + bookId,
-        dateType:"json",
+        dataType:"json",
         success:function (result) {
             console.log(result)
             document.getElementById("bookname").innerText = result.name

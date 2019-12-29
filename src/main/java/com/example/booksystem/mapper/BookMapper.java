@@ -16,15 +16,31 @@ public interface BookMapper {
     void deleteBookById(String id);
 
     @Select("select * from book where id=#{id}")
+    @Results({
+            @Result(column = "shelf_id", property = "shelfId"),
+            @Result(column = "type_id", property = "typeId")
+    })
     Book getBookById(int id);
 
     @Select("select * from book where type_id=#{typeId}")
+    @Results({
+            @Result(column = "shelf_id", property = "shelfId"),
+            @Result(column = "type_id", property = "typeId")
+    })
     List<Book> getBooksByType(int typeId);
 
     @Select("select * from book where name like '%${value}%'")
+    @Results({
+            @Result(column = "shelf_id", property = "shelfId"),
+            @Result(column = "type_id", property = "typeId")
+    })
     List<Book> getBooksByKeywords(String keywords);
 
     @Select("select * from book where isbn=#{isbn}")
+    @Results({
+            @Result(column = "shelf_id", property = "shelfId"),
+            @Result(column = "type_id", property = "typeId")
+    })
     Book getBookByIsbn(String isbn);
 
     @Update("update book set remain=#{remain} where id=#{id}")

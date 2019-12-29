@@ -13,7 +13,7 @@ public class Book {
     //简介
     private String synopsis;
     //类型编号
-    private int typeid;
+    private int typeId;
     //剩余数量
     private int remain;
     //isbn号
@@ -67,12 +67,12 @@ public class Book {
         this.synopsis = synopsis;
     }
 
-    public int getTypeid() {
-        return typeid;
+    public int getTypeId() {
+        return typeId;
     }
 
     public void setTypeid(int typeid) {
-        this.typeid = typeid;
+        this.typeId = typeid;
     }
 
     public int getRemain() {
