@@ -13,7 +13,7 @@ public interface ReserveService {
     void addReservation(int bookId, int userId);
 
     //删除预定
-    void deleteReservation(int id);
+    void deleteReservation(int bookId);
 
     //根据读者id查看预定
     List<Map<String, Object>> getReservationByUserId(int userId);

@@ -1,6 +1,7 @@
 package com.example.booksystem.controller;
 
 import com.example.booksystem.service.ReserveService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,5 +22,10 @@ public class ReserveController {
     @GetMapping(value = "/{userId}")
     public List<Map<String, Object>> getReservation(@PathVariable("userId") int userId){
         return reserveService.getReservationByUserId(userId);
+    }
+
+    @DeleteMapping(value = "/{bookId}")
+    public void deleteReservation(@PathVariable("bookId") int bookId){
+        reserveService.deleteReservation(bookId);
     }
 }

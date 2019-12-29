@@ -4,6 +4,7 @@ import com.example.booksystem.entity.Book;
 import com.example.booksystem.entity.Reservation;
 import com.example.booksystem.mapper.BookMapper;
 import com.example.booksystem.mapper.ReservationMapper;
+import com.example.booksystem.service.BorrowService;
 import com.example.booksystem.service.ReserveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class ReserveServiceImpl implements ReserveService {
     @Autowired
     private BookMapper bookMapper;
 
+    @Autowired
+    private BorrowService borrowService;
+
     //添加预定
     public void addReservation(int bookId, int userId){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -26,8 +30,13 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     //删除预定
-    public void deleteReservation(int id){
-        reservationMapper.deleteReservation(id);
+    public void deleteReservation(int bookId){
+        List<Reservation> reservationList = reservationMapper.getReservationByBookId(bookId);
+        if (reservationList.size() != 0){
+            int userId = reservationList.get(0).getUserId();
+            borrowService.borrowBook(bookId, userId);
+            reservationMapper.deleteReservation(reservationList.get(0).getId());
+        }
     }
 
     //根据读者id查看预定

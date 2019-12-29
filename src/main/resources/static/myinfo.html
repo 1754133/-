@@ -27,15 +27,23 @@
     <table width=70% height=250>
         <tr>
             <td width=50% align="center">昵称:</td>
-            <td><input type="text" value="" id="name" align="center"></td>
+            <td><input type="text" value="" id="name" ></td>
         </tr>
         <tr>
             <td width=50% align="center">年龄:</td>
-            <td><input type="number" value="" id="age" align="center"></p></td>
+            <td><input type="number" value="" id="age" ></td>
         </tr>
         <tr>
             <td width=50%  align="center">性别:</td>
-            <td><input type="text" value="" id="sex" align="center"></p></td>
+            <td><input type="text" value="" id="sex" ></td>
+        </tr>
+        <tr>
+            <td width=50% align="center">手机号码:</td>
+            <td><input type="text" value="" id="telephone" ></td>
+        </tr>
+        <tr>
+            <td width=50% align="center">专业:</td>
+            <td><input type="text" value="" id="speciality"></td>
         </tr>
     </table><br/><br/>
     <a class="button black" onclick="Modify()">修改</a>
@@ -63,21 +71,27 @@
             document.getElementById("name").value=result.name
             document.getElementById("age").value = result.age
             document.getElementById("sex").value = result.sex
+            document.getElementById("telephone").value=result.telephone
+            document.getElementById("speciality").value=result.speciality
         }
     })
     function Modify() {
         var r=confirm("您确定要修改吗？")
-        if(r==true){
+        if(r){
         var myname=document.getElementById("name").value
         var myage=document.getElementById("age").value
         var mysex=document.getElementById("sex").value
+        var myphone=document.getElementById("telephone").value
+        var myspec=document.getElementById("speciality").value
         $.ajax({
             type:"PUT",
             url:"http://localhost:8080/users/information/"+userId,
             data:{
                 name:myname,
                 age:myage,
-                sex:mysex
+                sex:mysex,
+                telephone:myphone,
+                speciality:myspec
             },
             dataType:"json",
             async:false
