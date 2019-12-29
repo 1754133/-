@@ -28,11 +28,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void addUser(String email, String password){
-        userMapper.addUser(email, password);
+    public void addUser(String email, String password, boolean ifBanned){
+        userMapper.addUser(email, password, ifBanned);
     }
 
-    public void modifyUserInformation(String id, String name, String sex, int age){
-        userMapper.modifyUserInformation(id, name, sex, age);
+    public void modifyUserInformation(String id, String name, String sex, int age, String telephone, String speciality){
+        userMapper.modifyUserInformation(id, name, sex, age, telephone, speciality);
     }
 }

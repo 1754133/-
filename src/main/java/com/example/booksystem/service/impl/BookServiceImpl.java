@@ -20,12 +20,6 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private TypeMapper typeMapper;
 
-    @Autowired
-    private BorrowInfoMapper borrowInfoMapper;
-
-    @Autowired
-    private UserMapper userMapper;
-
     public Map<String, Object> getBookById(int bookid){
         Book book = bookMapper.getBookById(bookid);
         return getBookMap(book);
@@ -60,6 +54,11 @@ public class BookServiceImpl implements BookService {
 
     public void updateBookInfo(int id, String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn){
         bookMapper.updateBookInfo(id, name, press, author, shelfId, synopsis, typeId, remain, isbn);
+    }
+
+    public void updateRemain(int id){
+        int remain = bookMapper.getBookById(id).getRemain();
+        bookMapper.updateBookRemain(id, ++remain);
     }
 
     //封装book详细的结果

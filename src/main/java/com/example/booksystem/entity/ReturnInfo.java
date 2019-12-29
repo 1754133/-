@@ -1,12 +1,15 @@
 package com.example.booksystem.entity;
 
-public class BorrowInfo {
+public class ReturnInfo {
     private int id;
     private int bookId;
     private int userId;
     private String borrowDate;
     private String shReturnDate;
-    private boolean renew;
+    private String returnDate;
+    private String condition;
+    private int fine;
+    private String remark;
 
     public int getId() {
         return id;
@@ -48,11 +51,35 @@ public class BorrowInfo {
         this.shReturnDate = shReturnDate;
     }
 
-    public boolean isRenew() {
-        return renew;
+    public String getReturnDate() {
+        return returnDate;
     }
 
-    public void setRenew(boolean renew) {
-        this.renew = renew;
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public int getFine() {
+        return fine;
+    }
+
+    public void setFine(int fine) {
+        this.fine = fine;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

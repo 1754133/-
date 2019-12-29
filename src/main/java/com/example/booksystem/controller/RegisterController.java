@@ -41,7 +41,7 @@ public class RegisterController {
 
     @PostMapping
     public boolean addUser(@RequestParam String email, @RequestParam String password){
-        userService.addUser(email, password);
+        userService.addUser(email, password, false);
         return true;
     }
 

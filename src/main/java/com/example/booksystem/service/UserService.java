@@ -14,7 +14,7 @@ public interface UserService {
     User getUserByEmailAndPassword(String email, String password);
 
 
-    void addUser(String email, String password);
+    void addUser(String email, String password, boolean ifBanned);
 
-    void modifyUserInformation(String id, String name, String sex, int age);
+    void modifyUserInformation(String id, String name, String sex, int age, String telephone, String speciality);
 }

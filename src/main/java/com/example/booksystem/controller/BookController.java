@@ -38,4 +38,9 @@ public class BookController {
     public void updateBookInfo(@PathVariable("bookId") int bookId, @RequestParam String name, @RequestParam String press, @RequestParam String author, @RequestParam String shelfId, @RequestParam String synopsis, @RequestParam int typeId, @RequestParam int remain, @RequestParam String isbn){
         bookService.updateBookInfo(bookId, name, press, author, shelfId, synopsis, typeId, remain, isbn);
     }
+
+    @PutMapping(value = "/remain/{bookId}")
+    public void updateRemain(@PathVariable("bookId") int bookId){
+        bookService.updateRemain(bookId);
+    }
 }

@@ -16,4 +16,6 @@ public interface BookService {
     boolean addBook(String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn);
 
     void updateBookInfo(int id, String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn);
+
+    void updateRemain(int id);
 }

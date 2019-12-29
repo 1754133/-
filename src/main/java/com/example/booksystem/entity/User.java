@@ -7,13 +7,9 @@ public class User {
     private String name;
     private String sex;
     private int age;
-
-    public User(){}
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    private String telephone;
+    private String speciality;
+    private boolean ifBanned;
 
     public int getId() {
         return id;
@@ -61,5 +57,29 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public boolean isIfBanned() {
+        return ifBanned;
+    }
+
+    public void setIfBanned(boolean ifBanned) {
+        this.ifBanned = ifBanned;
     }
 }

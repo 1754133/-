@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/information/{id}")
-    public void modifyUserInformation(@PathVariable("id") String id, @RequestParam String name, @RequestParam String sex, @RequestParam int age){
-        userService.modifyUserInformation(id, name, sex, age);
+    public void modifyUserInformation(@PathVariable("id") String id, @RequestParam String name, @RequestParam String sex, @RequestParam int age, @RequestParam String telephone, @RequestParam String speciality){
+        userService.modifyUserInformation(id, name, sex, age, telephone, speciality);
     }
 }

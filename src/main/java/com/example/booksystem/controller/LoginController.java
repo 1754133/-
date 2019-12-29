@@ -26,9 +26,11 @@ public class LoginController {
     @PostMapping
     public Map<String, Object> login(@RequestParam String email, @RequestParam String password){
         Map<String, Object> map = new HashMap<>();
-        if (userService.getUserByEmailAndPassword(email, password) != null){
+        User user = userService.getUserByEmailAndPassword(email, password);
+        if (user != null){
             map.put("status", true);
             map.put("userId", userService.getUserByEmailAndPassword(email, password).getId());
+            map.put("ifBanned", user.isIfBanned());
         }else {
             map.put("status", false);
         }
