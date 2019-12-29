@@ -29,8 +29,8 @@ public class UserController {
         return userService.getUserByEmail(email);
     }
 
-    @PutMapping(value = "/information")
-    public void modifyUserInformation(@RequestParam String id, @RequestParam String name, @RequestParam String sex, @RequestParam int age){
+    @PutMapping(value = "/information/{id}")
+    public void modifyUserInformation(@PathVariable("id") String id, @RequestParam String name, @RequestParam String sex, @RequestParam int age){
         userService.modifyUserInformation(id, name, sex, age);
     }
 }

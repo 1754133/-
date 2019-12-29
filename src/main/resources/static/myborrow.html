@@ -19,8 +19,8 @@
 <body>
 <ul>
     <li><a href="mainpage.html">读者系统主页</a></li>
-    <li><a href="#">查询图书信息</a></li>
-    <li><a href="querybook.html">个人信息</a></li>
+    <li><a href="querybook.html">查询图书信息</a></li>
+    <li><a href="myinfo.html">个人信息</a></li>
     <li><a class="active" href="myborrow.html">我的借阅</a></li>
 </ul>
 <div style="margin-left:15%;padding:1px 16px;height:1000px;"><br/><br/><br/>
@@ -65,14 +65,31 @@
     function createlist(data) {
         var str="";
         for(var i=0;i<data.length;i++){
-            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+"</center></td><td width=20%><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+data[i].shReturnDate+"</center></td><td width=10%><center>"+"<a class=\"button\" onclick=\"renew()\">续借</a>"+"</center></td></tr>";
-            console.log(str)
+            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+"</center></td><td width=20%><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+data[i].shReturnDate+"</center></td><td width=10%><center>"+"<a class=\"button\" onclick=\"renew("+data[i].id+","+"'"+data[i].shReturnDate +"'"+","+data[i].renew+")\">续借</a>"+"</center></td></tr>";
+            console.log(data[i].shReturnDate)
         }
         $("#bldata").html(str);
         $("#borrowlist").show();
     }
-    function renew() {
-        
+    function renew(id,shReturnDate,renew) {
+        console.log(shReturnDate)
+        console.log(renew)
+        if(renew){
+            $.ajax({
+                type:"PUT",
+                url:"http://localhost:8080/borrow/borrowinfo/"+id,
+                data:{
+                    shReturnDate:shReturnDate
+                },
+                dataType:"json",
+                async:false
+            })
+            alert("续借成功！")
+        }
+        else{
+            alert("续借次数已用尽！")
+        }
+        location.reload();
     }
 </script>
 </body>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myinfo</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<div class="header">
+    <h1>欢迎使用图书管理系统</h1>
+</div>
+<div class="navbar">
+    <a href="index.html">返回主页</a>
+    <a href="#" class="right">帮助</a>
+    <a href="index.html" class="right">注销</a>
+</div>
+<body>
+<ul>
+    <li><a href="mainpage.html">读者系统主页</a></li>
+    <li><a href="querybook.html">查询图书信息</a></li>
+    <li><a class="active" href="myinfo.html">个人信息</a></li>
+    <li><a href="myborrow.html">我的借阅</a></li>
+</ul>
+<div style="margin-left:15%;padding:1px 16px;height:1000px;"><br/><br/>
+<center>
+    <b>我的信息</b><br/><br/>
+    <table width=70% height=250>
+        <tr>
+            <td width=50% align="center">昵称:</td>
+            <td><input type="text" value="" id="name" align="center"></td>
+        </tr>
+        <tr>
+            <td width=50% align="center">年龄:</td>
+            <td><input type="number" value="" id="age" align="center"></p></td>
+        </tr>
+        <tr>
+            <td width=50%  align="center">性别:</td>
+            <td><input type="text" value="" id="sex" align="center"></p></td>
+        </tr>
+    </table><br/><br/>
+    <a class="button black" onclick="Modify()">修改</a>
+</center>
+</div>
+
+<script type="text/javascript">
+    var userId=getCookie("id")
+    function getCookie(cname){
+        var name= cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c=ca[i].trim();
+            if(c.indexOf(name)==0)
+                return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/users/"+userId,
+        dataType:"json",
+        success:function (result) {
+            console.log(result)
+            document.getElementById("name").value=result.name
+            document.getElementById("age").value = result.age
+            document.getElementById("sex").value = result.sex
+        }
+    })
+    function Modify() {
+        var r=confirm("您确定要修改吗？")
+        if(r==true){
+        var myname=document.getElementById("name").value
+        var myage=document.getElementById("age").value
+        var mysex=document.getElementById("sex").value
+        $.ajax({
+            type:"PUT",
+            url:"http://localhost:8080/users/information/"+userId,
+            data:{
+                name:myname,
+                age:myage,
+                sex:mysex
+            },
+            dataType:"json",
+            async:false
+        })
+        alert("修改成功")
+        location.reload();}
+        else{
+
+        }
+    }
+
+</script>
+</body>
+</html>
