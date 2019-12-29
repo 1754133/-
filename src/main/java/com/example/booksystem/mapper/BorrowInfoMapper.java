@@ -32,6 +32,15 @@ public interface BorrowInfoMapper {
     })
     BorrowInfo getBorrowInfoByBookIdAndUserId(int bookId, int userId);
 
+    @Select("select * from borrow_info where user_id=#{userId}")
+    @Results({
+            @Result(column = "book_id", property = "bookId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "borrow_date", property = "borrowDate"),
+            @Result(column = "sh_return_date", property = "shReturnDate"),
+    })
+    List<BorrowInfo> getBorrowInfoByUserId(int userId);
+
     @Delete("delete from borrow_info where id=#{id}")
     void deleteBorrowInfo(int id);
 }

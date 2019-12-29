@@ -49,6 +49,15 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowInfoMapList;
     }
 
+    public List<Map<String, Object>> getBorrowInfoByUserId(int userId){
+        List<BorrowInfo> borrowInfoList = borrowInfoMapper.getBorrowInfoByUserId(userId);
+        List<Map<String, Object>> borrowInfoMapList = new ArrayList<>();
+        for (BorrowInfo borrowInfo : borrowInfoList){
+            borrowInfoMapList.add(getBorrowInfoMap(borrowInfo));
+        }
+        return borrowInfoMapList;
+    }
+
     public boolean ifBorrowed(int bookId, int userId){
         return borrowInfoMapper.getBorrowInfoByBookIdAndUserId(bookId, userId) == null;
     }
@@ -61,6 +70,7 @@ public class BorrowServiceImpl implements BorrowService {
         User user = userMapper.getById(userId);
         Map<String, Object> map = new HashMap<>();
         map.put("bookName", book.getName());
+        map.put("author", book.getAuthor());
         map.put("isbn", book.getIsbn());
         map.put("userEmail", user.getEmail());
         map.put("borrowDate", borrowInfo.getBorrowDate());

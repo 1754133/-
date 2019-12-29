@@ -20,24 +20,42 @@
 <ul>
     <li><a href="mainpage.html">读者系统主页</a></li>
     <li><a href="#">查询图书信息</a></li>
-    <li><a href="#">个人信息</a></li>
+    <li><a href="querybook.html">个人信息</a></li>
     <li><a class="active" href="myborrow.html">我的借阅</a></li>
 </ul>
-<div style="margin-left:15%;padding:1px 16px;height:1000px;">
-    <table id="borrowlist" border="1">
+<div style="margin-left:15%;padding:1px 16px;height:1000px;"><br/><br/><br/>
+    <center><table id="borrowlist" border="1" width=80%>
         <thead>
         <tr>
             <th>书名</th>
             <th>作者</th>
-            <th>书架号</th>
+            <th>ISBN</th>
+            <th>借书时间</th>
+            <th>归还期限</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody id="bldata">
 
         </tbody>
-    </table>
+    </table></center>
 </div>
+<script type="text/javascript">
+    var userId=getCookie("id")
+    function getCookie(cname){
+        var name= cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c=ca[i].trim();
+            if(c.indexOf(name)==0)
+                return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    $.ajax({
 
+        }
+    )
+</script>
 </body>
 </html>

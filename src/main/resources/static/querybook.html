@@ -29,7 +29,7 @@
     <input style="width:400px;height:40px" type="text" value="" id="keyword" /><br/><br/>
         <a class="button black" onclick="query()">查找</a>
     <br/><br/>
-    <table id="booklist" border="1" hidden>
+    <table id="booklist" border="1" hidden width=70%>
         <thead>
         <tr>
             <th>书名</th>
@@ -65,7 +65,7 @@
     function createlist(data) {
         var str="";
         for(var i=0;i<data.length;i++){
-            str += "<tr><td>"+data[i].name+"</td><td>"+data[i].author+"</td><td>"+data[i].shelfId+"</td><td>"+"<a class=\"button\" onclick=\"gotodetail("+data[i].bookId+")\">前往详情页</a>"+"</td></tr>";
+            str += "<tr><td><center>"+data[i].name+"</center></td><td><center>"+data[i].author+"</center></td><td><center>"+data[i].shelfId+"</center></td><td width=16%><center>"+"<a class=\"button\" onclick=\"gotodetail("+data[i].bookId+")\">前往详情页</a>"+"</center></td></tr>";
             console.log(str)
         }
         $("#tbdata").html(str);

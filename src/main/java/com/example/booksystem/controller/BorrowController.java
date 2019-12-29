@@ -23,6 +23,11 @@ public class BorrowController {
         return borrowService.getBorrowInfo();
     }
 
+    @GetMapping(value = "/borrowinfo/{userId}")
+    public List<Map<String, Object>> getBorrowInfoByUserId(@PathVariable("userId") int userId){
+        return borrowService.getBorrowInfoByUserId(userId);
+    }
+
     @GetMapping(value = "/borrowinfo/{bookId}/{userId}")
     public boolean ifBorrowed(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
         return borrowService.ifBorrowed(bookId, userId);
