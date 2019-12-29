@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface BookMapper {
-    @Insert("insert into book(name,press,author,shelfid,synopsis,typeid,remain,isbn) values(#{name},#{press},#{author},#{shelfId},#{synopsis},#{typeId},#{remain},#{isbn})")
+    @Insert("insert into book(name,press,author,shelf_id,synopsis,type_id,remain,isbn) values(#{name},#{press},#{author},#{shelfId},#{synopsis},#{typeId},#{remain},#{isbn})")
     void addBook(String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn);
 
     @Delete("delete from book where id=#{id}")
@@ -18,7 +18,7 @@ public interface BookMapper {
     @Select("select * from book where id=#{id}")
     Book getBookById(int id);
 
-    @Select("select * from book where typeid=#{typeId}")
+    @Select("select * from book where type_id=#{typeId}")
     List<Book> getBooksByType(int typeId);
 
     @Select("select * from book where name like '%${value}%'")
@@ -30,6 +30,6 @@ public interface BookMapper {
     @Update("update book set remain=#{remain} where id=#{id}")
     void updateBookRemain(int id, int remain);
 
-    @Update("update book set name=#{name},press=#{press},author=#{author},shelfid=#{shelfId},synopsis=#{synopsis},typeid=#{typeId},remain=#{remain},isbn=#{isbn} where id=#{id}")
+    @Update("update book set name=#{name},press=#{press},author=#{author},shelf_id=#{shelfId},synopsis=#{synopsis},type_id=#{typeId},remain=#{remain},isbn=#{isbn} where id=#{id}")
     void updateBookInfo(int id, String name, String press, String author, String shelfId, String synopsis, int typeId, int remain, String isbn);
 }

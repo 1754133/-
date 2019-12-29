@@ -6,8 +6,8 @@ public class BorrowInfo {
     private int id;
     private int bookId;
     private int userId;
-    private Date borrowDate;
-    private Date shReturnDate;
+    private String borrowDate;
+    private String shReturnDate;
     private boolean renew;
 
     public int getId() {
@@ -34,19 +34,19 @@ public class BorrowInfo {
         this.userId = userId;
     }
 
-    public Date getBorrowDate() {
+    public String getBorrowDate() {
         return borrowDate;
     }
 
-    public void setBorrowDate(Date borrowDate) {
+    public void setBorrowDate(String borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public Date getShReturnDate() {
+    public String getShReturnDate() {
         return shReturnDate;
     }
 
-    public void setShReturnDate(Date shReturnDate) {
+    public void setShReturnDate(String shReturnDate) {
         this.shReturnDate = shReturnDate;
     }
 

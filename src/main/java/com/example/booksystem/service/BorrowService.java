@@ -15,4 +15,5 @@ public interface BorrowService {
 
     //检查是否已有借阅信息
     boolean ifBorrowed(int bookId, int userId);
+
 }
