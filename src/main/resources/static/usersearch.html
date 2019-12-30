@@ -30,18 +30,33 @@
     <input style="width:400px;height:40px" type="text" id="email"/><br/><br/><br/>
     <a class="button black" onclick="query()">用户搜索</a><br/><br/>
     <center>
-        <table id="booklist" border="1" hidden width=50%>
-            <thead>
-            <tr>
-                <th>用户邮箱</th>
-                <th>用户姓名</th>
-                <th>性别</th>
-                <th>年龄</th>
-                <th>删除用户</th>
+
+        <table id="userinfo" width="400" hidden>
+            <tr style="height: 30px">
+                <th width="200">邮箱:</th>
+                <th id="e-mail"></th>
             </tr>
-            </thead>
-            <tbody id="tbdata">
-            </tbody>
+            <tr style="height: 30px">
+                <th width="200">姓名:</th>
+                <th id="name"></th>
+            </tr>
+            <tr style="height: 30px">
+                <th width="200">性别：</th>
+                <th id="sex"></th>
+            </tr>
+            <tr style="height: 30px">
+                <th width="200">年龄：</th>
+                <th id="age"></th>
+            </tr>
+            <tr style="height: 30px">
+                <th width="200">账号状态：</th>
+                <th id="con"></th>
+            </tr>
+            <tr style="height: 30px"></tr><tr></tr>
+            <tr>
+                <th id="deletebutton"></th>
+                <th id="clockbutton"></th>
+            </tr>
         </table>
     </center>
 
@@ -55,18 +70,59 @@
             url:"http://localhost:8080/users/email/" + email,
             dateType:"json",
             success:function (result) {
-                console.log(result.email)
-                createlist(result)
+                console.log(result)
+                if(result=="")
+                {
+                    alert("该用户不存在。")
+                }
+                else{
+                createlist(result)}
             }
         })
     }
     function createlist(data) {
-        var str="";
-        str += "<tr><td>"+data.email+"</td><td>"+data.name+"</td><td>"+data.sex+"</td><td>"+data.age+"</td>"+"<td><a class='button' onclick=deleteuser()>删除用户</a></td></tr>";
-        console.log(str)
-        
-        $("#tbdata").html(str);
-        $("#booklist").show();
+        document.getElementById("e-mail").innerText = data.email
+        document.getElementById("name").innerText=data.name
+        document.getElementById("sex").innerText=data.sex
+        document.getElementById("age").innerText=data.age
+        var butt=""
+        butt="<a class=\"button black\" onclick=\"deleteuser("+data.id+")\">删除用户</a>"
+        $("#deletebutton").html(butt);
+        if(data.ifBanned)
+        {
+            document.getElementById("con").innerText="已封禁"
+            butt="<a class=\"button black\" onclick=\"lockuser("+data.id+")\">解封用户</a>"
+            $("#clockbutton").html(butt);
+        }
+        else{
+            document.getElementById("con").innerText="正常"
+            butt="<a class=\"button black\" onclick=\"lockuser("+data.id+")\">封禁用户</a>"
+            $("#clockbutton").html(butt);
+        }
+        $("#userinfo").show();
+    }
+    function deleteuser(id) {
+        var r=confirm("您确定要刪除该用戶吗？")
+        if(r){
+            $.ajax({
+                type:"DELETE",
+                url:"http://localhost:8080/users/"+id,
+                dataType:"json"
+            })
+            alert("删除成功。")
+            location.reload()
+        }
+        else{
+
+        }
+    }
+    function lockuser(id) {
+        $.ajax({
+            type:"PUT",
+            url:"http://localhost:8080/users/"+id,
+            dataType:"json"
+        })
+        location.reload()
     }
 
 </script>

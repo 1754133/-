@@ -49,9 +49,17 @@
             success:function(result){
                 console.log(result)
                 if (result.status){
-                    document.cookie="id=" + result.userId + ";path=/";
-                    alert("登陆成功!");
-                    window.open("mainpage.html","_self");
+                    if(!result.ifBanned)
+                    {
+                        document.cookie="id=" + result.userId + ";path=/";
+                        alert("登陆成功!");
+                        window.open("mainpage.html","_self");
+                    }
+                    else{
+                        alert("您的账号已被封禁，请联系管理员解封。")
+                        location.reload()
+                    }
+
                 }else {
                     alert("账号或密码错误，请重新输入!");
                     window.location.reload();

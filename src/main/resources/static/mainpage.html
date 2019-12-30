@@ -28,21 +28,45 @@
 </ul>
 
 <div style="margin-left:15%;padding:1px 16px;height:1000px;">
+    <center><p>以下图书即将到期，请及时到图书馆还书!</p>
+        <table id="borrowlist" border="1" width=90%>
+        <thead>
+        <tr>
+            <th>书名</th>
+            <th>作者</th>
+            <th>ISBN</th>
+            <th>借书时间</th>
+            <th>归还期限</th>
+        </tr>
+        </thead>
+        <tbody id="bldata">
+
+        </tbody>
+    </table></center>
 
 </div>
 
 <script type="text/javascript">
-    function logout() {
-        clearCookie();
-        window.open("index.html","_self");
-    }
-
-    function clearCookie(){
-        var keys=document.cookie.match(/[^ =;]+(?=\=)/g);
-        if (keys) {
-            for (var i = keys.length; i--;)
-                document.cookie=keys[i]+'=0;expires=' + new Date( 0).toUTCString()
+    var id = getCookie("id");
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/borrow/borrowinfo/notice/" + id,
+        dateType:"json",
+        success:function (result) {
+            createlist(result)
         }
+    })
+
+    function createlist(data) {
+        var str="";
+        for(var i=0;i<data.length;i++){
+            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+
+                "</center></td><td><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+
+                "</center></td><td><center>"+data[i].shReturnDate +"</center></td></tr>";
+            console.log(str)
+        }
+        $("#bldata").html(str);
+        $("#borrowlist").show();
     }
 
     function getCookie(cname){
@@ -55,17 +79,7 @@
         return "";
     }
 
-    function showUser() {
-        var id = getCookie("id");
-        $.ajax({
-            type:"GET",
-            url:"http://localhost:8080/users/" + id,
-            success:function(result){
-                console.log(result);
 
-            }
-        });
-    }
 
 </script>
 </body>
