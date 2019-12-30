@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    管理系统
+</div>
+<hr/>
+<div>
+    <table>
+        <tr>
+            <td><button>用户管理</button></td>
+        </tr>
+        <tr>
+            <td><button>图书管理</button></td>
+        </tr>
+        <tr>
+            <td><button>处理还书</button></td>
+        </tr>
+        <tr>
+            <td><button id="addbook" onclick="jumptoadd()">上架图书</button></td>
+        </tr>
+    </table>
+</div>
+<div id="manage">
+    <h2>图书管理</h2>
+    <span>请输入要查询的图书或作者</span>
+    <input type="text" id="keyword"/>
+    <button onclick="query()">图书搜索</button>
+    <center>
+        <table id="booklist" border="1" hidden>
+            <thead>
+            <tr>
+                <th>书名</th>
+                <th>作者</th>
+                <th>书架号</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tbdata">
+            </tbody>
+        </table>
+    </center>
+
+</div>
+<script type="text/javascript">
+    function query() {
+        var keyword=$("#keyword").val();
+        console.log(keyword)
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/books/keywords/" + keyword,
+            dateType:"json",
+            success:function (result) {
+                console.log(result.length)
+                console.log(result[0].name)
+                console.log(result[0].author)
+                createlist(result)
+            }
+        })
+    }
+    function createlist(data) {
+        var str="";
+        for(var i=0;i<data.length;i++){
+            str += "<tr><td>"+data[i].name+"</td><td>"+data[i].author+"</td><td>"+data[i].shelfId+"</td><td>"+"<a class=\"button\" onclick=\"gotodetail("+data[i].bookId+")\">图书信息修改</a>"+"</td></tr>";
+            console.log(str)
+        }
+        $("#tbdata").html(str);
+        $("#booklist").show();
+    }
+    function gotodetail(bookid) {
+        document.cookie="bookId="+bookid
+        window.open("bookinfomanage.html")
+    }
+    function jumptoadd() {
+        window.open("addbook.html","_self");
+    }
+</script>
+</body>
+</html>

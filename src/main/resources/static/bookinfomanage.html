@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="mainbox"><center>
+    <b>书目信息</b><br/><br/>
+    <table width="800">
+        <tr>
+            <th width="200">书名:</th>
+            <th><input type="text" id="bookname"></th>
+        </tr>
+        <tr>
+            <th width="200">作者:</th>
+            <th><input type="text" id="author"></th>
+        </tr>
+        <tr>
+            <th width="200">出版社：</th>
+            <th><input type="text" id="press"></th>
+        </tr>
+        <tr>
+            <th width="200">书架号：</th>
+            <th><input type="text" id="shelfId"></th>
+        </tr>
+        <tr>
+            <th width="200">类别：</th>
+            <th><select type="text" id="typeId">
+                <option value="1">军事</option>
+                <option value="2">政治</option>
+                <option value="3">经济</option>
+                <option value="4">文学</option>
+                <option value="5">计算机</option>
+            </select></th>
+        </tr>
+        <tr>
+            <th width="200">ISBN:</th>
+            <th><input type="text" id="isbn"></th>
+        </tr>
+        <tr>
+            <th width="200">简介:</th>
+            <th><input type="text" id="synopsis"></th>
+        </tr>
+        <tr>
+            <th width="200">库存：</th>
+            <th><input type="text" id="remain"></th>
+        </tr>
+    </table><br/><br/>
+    <div><button id="button" onclick=updatebook()>图书信息更新</button></div>
+</center>
+</div>
+<script type="text/javascript">
+    var bookId = getCookie("bookId")
+    function getCookie(cname){
+        var name= cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c=ca[i].trim();
+            if(c.indexOf(name)==0)
+                return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    console.log(bookId)
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/books/" + bookId,
+        dataType:"json",
+        success:function (result) {
+            console.log(result)
+            document.getElementById("bookname").value=result.name
+            document.getElementById("author").value=result.author
+            document.getElementById("press").value=result.press
+            document.getElementById("shelfId").value=result.shelfId
+            if(result.type=="军事")
+                document.getElementById("typeId").value=1;
+            if(result.type=="政治")
+                document.getElementById("typeId").value=2;
+            if(result.type=="经济")
+                document.getElementById("typeId").value=3;
+            if(result.type=="文学")
+                document.getElementById("typeId").value=4;
+            if(result.type=="计算机")
+                document.getElementById("typeId").value=5;
+            document.getElementById("synopsis").value=result.synopsis
+            document.getElementById("remain").value=result.remain
+            document.getElementById("isbn").value=result.isbn
+        }
+    })
+    function updatebook() {
+        console.log(bookId)
+        var name=document.getElementById("bookname").value
+        var press=document.getElementById("press").value
+        var author=document.getElementById("author").value
+        var shelfId=document.getElementById("shelfId").value
+        var synopsis=document.getElementById("synopsis").value
+        var typeId=document.getElementById("typeId").value
+        var remain=document.getElementById("remain").value
+        var isbn=document.getElementById("isbn").value
+        $.ajax({
+            type:"PUT",
+            url:"http://localhost:8080/books/" + bookId,
+            data:{
+                bookId:bookId,
+                name:name,
+                press:press,
+                author: author,
+                shelfId: shelfId,
+                synopsis:synopsis,
+                typeId: typeId,
+                remain:remain,
+                isbn:isbn,
+            },
+            dataType:"json",
+        });
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    管理系统
+</div>
+<hr/>
+<div>
+    <table>
+        <tr>
+            <td><button id="usermanage">用户管理</button></td>
+        </tr>
+        <tr>
+            <td><button id="bookmanage" onclick="jumptomanage">图书管理</button></td>
+        </tr>
+        <tr>
+            <td><button id="returnmanage">处理还书</button></td>
+        </tr>
+        <tr>
+            <td><button id="addbook">上架图书</button></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <div id="mainbox"><center>
+        <b>书目信息</b><br/><br/>
+        <table width="800">
+            <tr>
+                <th width="200">书名:</th>
+                <th><input type="text" id="bookname"></th>
+            </tr>
+            <tr>
+                <th width="200">作者:</th>
+                <th><input type="text" id="author"></th>
+            </tr>
+            <tr>
+                <th width="200">出版社：</th>
+                <th><input type="text" id="press"></th>
+            </tr>
+            <tr>
+                <th width="200">书架号：</th>
+                <th><input type="text" id="shelfId"></th>
+            </tr>
+            <tr>
+                <th width="200">类别：</th>
+                <th><input type="text" id="type"></th>
+            </tr>
+            <tr>
+                <th width="200">ISBN:</th>
+                <th><input type="text" id="isbn"></th>
+            </tr>
+            <tr>
+                <th width="200">简介:</th>
+                <th><input type="text" id="synopsis"></th>
+            </tr>
+            <tr>
+                <th width="200">库存：</th>
+                <th><input type="text" id="remain"></th>
+            </tr>
+        </table><br/><br/>
+        <div id="button" ><button onclick=updatebook()>上架图书</button></div>
+    </center>
+    </div>
+</div>
+<script type="text/javascript">
+    function updatebook() {
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/books",
+            data:{
+                name:document.getElementById("bookname").value,
+                press:document.getElementById("press").value,
+                author: document.getElementById("author").value,
+                shelfId: document.getElementById("shelfId").value,
+                synopsis:document.getElementById("synopsis").value,
+                typeId: document.getElementById("type").value,
+                remain:document.getElementById("remain").value,
+                isbn:document.getElementById("isbn").value,
+            },
+            dataType:"json",
+            async:false,
+            success:function(result){
+                console.log(result)
+                if (result){
+                    alert("添加图书成功!");
+                }else {
+                    alert("添加图书失败！");
+                    window.location.reload();
+                }
+            }
+        });
+
+    }
+    function jumptomanage() {
+        window.open("guanli.html","_self")
+    }
+
+</script>
+</body>
+</html>

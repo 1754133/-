@@ -15,53 +15,48 @@
 
 <div class="navbar">
     <a style="background-color: #dddddd;color: black" href="login.html">学生登录</a>
-    <a href="managelogin.html">管理员登录</a>
+    <a href="#">管理员登录</a>
     <a href="register.html">学生注册</a>
     <a href="#" class="right">帮助</a>
 </div>
 <center>
-<div class="row">
-    <div class="side">
-        <h2>学生登录</h2>
-        <h5 style="text-align:left;padding-left:37%;">请输入邮箱:</h5>
-        <input style="width:400px;height:40px" type="text" value="" id="email" /><br/>
-        <h5 style="text-align:left;padding-left:37%;">请输入密码：</h5>
-        <input style="width:400px;height:40px" type="password" id="password" /><br/><br/><br/>
-        <a class="button black" onclick="login()">登录</a>
-        <a class="button black" onclick="toregister()">注册</a>
-        <br/><br/>
-    </div>
+    <div class="row">
+        <div class="side">
+            <h2>管理员登录</h2>
+            <h5 style="text-align:left;padding-left:37%;">请输入管理员账号:</h5>
+            <input style="width:400px;height:40px" type="text" value="" id="name" /><br/>
+            <h5 style="text-align:left;padding-left:37%;">请输入密码：</h5>
+            <input style="width:400px;height:40px" type="password" id="password" /><br/><br/><br/>
+            <a class="button black" onclick="login()">登录</a>
+            <br/><br/>
+        </div>
 
-</div></center>
+    </div></center>
 
 <script type="text/javascript">
     function login(){
-        var email = $("#email").val();
+        var name = $("#name").val();
         var password = $("#password").val();
         $.ajax({
             type:"POST",
-            url:"http://localhost:8080/users/login",
+            url:"http://localhost:8080/administrators/login",
             data:{
-                email:email,
+                name:name,
                 password:password
             },
             dataType:"json",
             success:function(result){
                 console.log(result)
-                if (result.status){
+                if (result){
                     document.cookie="id=" + result.userId + ";path=/";
                     alert("登陆成功!");
-                    window.open("mainpage.html","_self");
+                    window.open("manage.html","_self");
                 }else {
                     alert("账号或密码错误，请重新输入!");
                     window.location.reload();
                 }
             }
         });
-    }
-
-    function toregister(){
-        window.open("register.html","_self");
     }
 
 </script>
