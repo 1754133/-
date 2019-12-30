@@ -5,6 +5,8 @@ import com.example.booksystem.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public interface UserService {
     User getUserById(int id);
@@ -13,6 +15,7 @@ public interface UserService {
 
     User getUserByEmailAndPassword(String email, String password);
 
+    Map<String, Object> login(String email, String password);
 
     void addUser(String email, String password, boolean ifBanned);
 

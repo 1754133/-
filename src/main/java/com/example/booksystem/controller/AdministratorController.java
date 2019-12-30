@@ -15,29 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/login")
-public class LoginController {
-    @Autowired
-    private UserService userService;
+@RequestMapping(value = "/administrators")
+public class AdministratorController {
 
     @Autowired
     private AdministratorService administratorService;
 
-    @PostMapping
-    public Map<String, Object> login(@RequestParam String email, @RequestParam String password){
-        Map<String, Object> map = new HashMap<>();
-        User user = userService.getUserByEmailAndPassword(email, password);
-        if (user != null){
-            map.put("status", true);
-            map.put("userId", userService.getUserByEmailAndPassword(email, password).getId());
-            map.put("ifBanned", user.isIfBanned());
-        }else {
-            map.put("status", false);
-        }
-        return map;
-    }
-
-    @PostMapping(value = "/admin")
+    @PostMapping(value = "/login")
     public boolean AdminLogin(@RequestParam String name, @RequestParam String password){
         return (administratorService.getAdministrator(name, password) != null);
     }

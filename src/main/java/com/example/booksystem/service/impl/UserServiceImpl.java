@@ -7,6 +7,9 @@ import com.example.booksystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -25,6 +28,19 @@ public class UserServiceImpl implements UserService {
 
     public User getUserByEmailAndPassword(String email, String password){
         return userMapper.getByEmailAndPassword(email, password);
+    }
+
+    public Map<String, Object> login(String email, String password){
+        Map<String, Object> map = new HashMap<>();
+        User user = userMapper.getByEmailAndPassword(email, password);
+        if (user != null){
+            map.put("status", true);
+            map.put("userId", userMapper.getByEmailAndPassword(email, password).getId());
+            map.put("ifBanned", user.isIfBanned());
+        }else {
+            map.put("status", false);
+        }
+        return map;
     }
 
 
