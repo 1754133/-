@@ -108,11 +108,11 @@
             document.getElementById("synopsis").innerText=result.synopsis
             document.getElementById("remain").innerText=result.remain
             document.getElementById("isbn").innerText=result.isbn
-            if(canborrow==0&&result.remain!=0)
+            if(canborrow==0)
             {
                 var _button="<a class= \"button black\" disabled=\"disabled\">已借阅</a>\n"
             }
-            if(result.remain==0&&isreserved==0){
+            if(result.remain==0&&isreserved==0&&canborrow==1){
                 var _button="<a class=\"button black\" onclick=\"Reserve("+bookId+")\">预定</a>\n"
             }
             if(result.remain==0&&isreserved==1){

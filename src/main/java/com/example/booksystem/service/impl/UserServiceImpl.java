@@ -48,7 +48,16 @@ public class UserServiceImpl implements UserService {
         userMapper.addUser(email, password, ifBanned);
     }
 
-    public void modifyUserInformation(String id, String name, String sex, int age, String telephone, String speciality){
+    public void modifyUserInformation(int id, String name, String sex, int age, String telephone, String speciality){
         userMapper.modifyUserInformation(id, name, sex, age, telephone, speciality);
+    }
+
+    public void deleteUser(int id){
+        userMapper.deleteUser(id);
+    }
+
+    public void banUser(int id){
+        boolean ifBanned = !userMapper.getById(id).isIfBanned();
+        userMapper.banUser(id, ifBanned);
     }
 }

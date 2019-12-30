@@ -10,47 +10,49 @@
 
 <div id="mainbox"><center>
     <b>书目信息</b><br/><br/>
-    <table width="800">
+    <table width="500">
         <tr>
-            <th width="200">书名:</th>
+            <th>书名:</th>
             <th><input type="text" id="bookname"></th>
         </tr>
         <tr>
-            <th width="200">作者:</th>
+            <th>作者:</th>
             <th><input type="text" id="author"></th>
         </tr>
         <tr>
-            <th width="200">出版社：</th>
+            <th>出版社：</th>
             <th><input type="text" id="press"></th>
         </tr>
         <tr>
-            <th width="200">书架号：</th>
+            <th>书架号：</th>
             <th><input type="text" id="shelfId"></th>
         </tr>
         <tr>
-            <th width="200">类别：</th>
-            <th><select type="text" id="typeId">
+            <th>ISBN:</th>
+            <th><input type="text" id="isbn"></th>
+        </tr>
+        <tr>
+            <th>简介:</th>
+            <th><input type="text" id="synopsis"></th>
+        </tr>
+        <tr>
+            <th>库存：</th>
+            <th><input type="text" id="remain"></th>
+        </tr>
+        <tr>
+            <th>类别：</th>
+            <th><div class="select" style="width: 150px">
+                <select id="typeId">
                 <option value="1">军事</option>
                 <option value="2">政治</option>
                 <option value="3">经济</option>
                 <option value="4">文学</option>
                 <option value="5">计算机</option>
-            </select></th>
+            </select></div></th>
         </tr>
-        <tr>
-            <th width="200">ISBN:</th>
-            <th><input type="text" id="isbn"></th>
-        </tr>
-        <tr>
-            <th width="200">简介:</th>
-            <th><input type="text" id="synopsis"></th>
-        </tr>
-        <tr>
-            <th width="200">库存：</th>
-            <th><input type="text" id="remain"></th>
-        </tr>
+
     </table><br/><br/>
-    <div><button id="button" onclick=updatebook()>图书信息更新</button></div>
+    <div><a class="button black" id="button" onclick=updatebook()>图书信息更新</a></div>
 </center>
 </div>
 <script type="text/javascript">
@@ -117,6 +119,8 @@
             },
             dataType:"json",
         });
+        alert("修改成功。")
+        location.reload()
     }
 
 </script>

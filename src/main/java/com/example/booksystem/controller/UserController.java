@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/information/{id}")
-    public void modifyUserInformation(@PathVariable("id") String id, @RequestParam String name, @RequestParam String sex, @RequestParam int age, @RequestParam String telephone, @RequestParam String speciality){
+    public void modifyUserInformation(@PathVariable("id") int id, @RequestParam String name, @RequestParam String sex, @RequestParam int age, @RequestParam String telephone, @RequestParam String speciality){
         userService.modifyUserInformation(id, name, sex, age, telephone, speciality);
     }
 
@@ -66,7 +66,18 @@ public class UserController {
 
     @PostMapping
     public boolean addUser(@RequestParam String email, @RequestParam String password){
-        userService.addUser(email, password, false);
+        userService.addUser(email, password, true);
+        System.out.println(userService.getUserByEmail(email).isIfBanned());
         return true;
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteUser(@PathVariable("id") int id){
+        userService.deleteUser(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public void banUser(@PathVariable("id") int id){
+        userService.banUser(id);
     }
 }

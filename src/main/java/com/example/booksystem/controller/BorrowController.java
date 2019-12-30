@@ -43,4 +43,9 @@ public class BorrowController {
     public void renew(@PathVariable("id") int id, @RequestParam String shReturnDate) throws ParseException {
         borrowService.renew(id, shReturnDate);
     }
+
+    @GetMapping(value = "/borrowinfo/notice/{userId}")
+    public List<Map<String, Object>> getReturnDate(@PathVariable("userId") int userId) throws ParseException {
+        return borrowService.checkOverdue(userId);
+    }
 }

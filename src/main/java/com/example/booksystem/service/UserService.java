@@ -19,5 +19,9 @@ public interface UserService {
 
     void addUser(String email, String password, boolean ifBanned);
 
-    void modifyUserInformation(String id, String name, String sex, int age, String telephone, String speciality);
+    void modifyUserInformation(int id, String name, String sex, int age, String telephone, String speciality);
+
+    void deleteUser(int id);
+
+    void banUser(int id);
 }

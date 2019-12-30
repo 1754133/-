@@ -29,9 +29,7 @@ public class BorrowServiceImpl implements BorrowService {
     public void borrowBook(int bookId, int userId){
         Book book = bookMapper.getBookById(bookId);
         int remain = book.getRemain();
-        System.out.println(remain);
         bookMapper.updateBookRemain(bookId, --remain);
-        System.out.println(remain);
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         Date date1 = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -40,7 +38,6 @@ public class BorrowServiceImpl implements BorrowService {
         gregorianCalendar.add(2, +1);
         String shReturnDate = simpleDateFormat.format(gregorianCalendar.getTime());
         borrowInfoMapper.addBorrowInfo(bookId, userId, borrowDate, shReturnDate, true);
-        System.out.println(remain);
     }
 
     public List<Map<String, Object>> getBorrowInfo(){
@@ -81,6 +78,31 @@ public class BorrowServiceImpl implements BorrowService {
         gregorianCalendar.setTime(dateFormat.parse(shReturnDate));
         gregorianCalendar.add(5, +15);
         borrowInfoMapper.renewBook(id,dateFormat.format(gregorianCalendar.getTime()), false);
+    }
+
+    public List<Map<String, Object>> checkOverdue(int userId) throws ParseException {
+        List<BorrowInfo> borrowInfoList = borrowInfoMapper.getBorrowInfoByUserId(userId);
+        List<Map<String, Object>> borrowInfoMapList = new ArrayList<>();
+        for (BorrowInfo borrowInfo : borrowInfoList){
+            if (checkDate(borrowInfo)){
+                borrowInfoMapList.add(getBorrowInfoMap1(borrowInfo));
+            }
+        }
+        return borrowInfoMapList;
+    }
+
+    //判断是否临近期限
+    private boolean checkDate(BorrowInfo borrowInfo) throws ParseException {
+        String shReturnDate = borrowInfo.getShReturnDate();
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        gregorianCalendar.setTime(date);
+        gregorianCalendar.add(5, +3);
+        if (gregorianCalendar.getTime().before(dateFormat.parse(shReturnDate))){
+            return false;
+        }
+        return true;
     }
 
     //包装返回结果

@@ -4,68 +4,73 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
+<div class="header">
+    <h1>欢迎使用管理员系统</h1>
+</div>
+
+<div class="navbar">
+    <a href="index.html">返回主页</a>
+    <a href="#" class="right">帮助</a>
+    <a href="index.html" class="right">注销</a>
+</div>
 <body>
-<div>
-    管理系统
-</div>
-<hr/>
-<div>
-    <table>
-        <tr>
-            <td><button id="usermanage">用户管理</button></td>
-        </tr>
-        <tr>
-            <td><button id="bookmanage" onclick="jumptomanage">图书管理</button></td>
-        </tr>
-        <tr>
-            <td><button id="returnmanage">处理还书</button></td>
-        </tr>
-        <tr>
-            <td><button id="addbook">上架图书</button></td>
-        </tr>
-    </table>
-</div>
-<div>
-    <div id="mainbox"><center>
+<ul>
+    <li><a href="manage.html">查询图书信息</a></li>
+    <li><a href="usersearch.html">查询读者信息</a></li>
+    <li><a class="active" href="addbook.html">添加图书</a></li>
+    <li><a href="queryuserborrow.html">查询读者借阅</a></li>
+</ul>
+
+<div style="margin-left:15%;padding:1px 16px;height:1000px;">
+    <div id="mainbox"><br/><br/><center>
         <b>书目信息</b><br/><br/>
-        <table width="800">
+        <table width="500">
             <tr>
-                <th width="200">书名:</th>
+                <th width="200" align="center">书名:</th>
                 <th><input type="text" id="bookname"></th>
             </tr>
             <tr>
-                <th width="200">作者:</th>
+                <th width="200" align="center">作者:</th>
                 <th><input type="text" id="author"></th>
             </tr>
             <tr>
-                <th width="200">出版社：</th>
+                <th width="200" align="center">出版社：</th>
                 <th><input type="text" id="press"></th>
             </tr>
             <tr>
-                <th width="200">书架号：</th>
+                <th width="200" align="center">书架号：</th>
                 <th><input type="text" id="shelfId"></th>
             </tr>
             <tr>
-                <th width="200">类别：</th>
-                <th><input type="text" id="type"></th>
-            </tr>
-            <tr>
-                <th width="200">ISBN:</th>
+                <th width="200" align="center">ISBN:</th>
                 <th><input type="text" id="isbn"></th>
             </tr>
             <tr>
-                <th width="200">简介:</th>
+                <th width="200" align="center">简介:</th>
                 <th><input type="text" id="synopsis"></th>
             </tr>
             <tr>
-                <th width="200">库存：</th>
+                <th width="200" align="center">库存：</th>
                 <th><input type="text" id="remain"></th>
             </tr>
+            <tr>
+                <th width="200" align="center">类别：</th>
+                <th><div class="select" style="width: 150px">
+                    <select id="typeId">
+                        <option value="1">军事</option>
+                        <option value="2">政治</option>
+                        <option value="3">经济</option>
+                        <option value="4">文学</option>
+                        <option value="5">计算机</option>
+                    </select></div></th>
+            </tr>
         </table><br/><br/>
-        <div id="button" ><button onclick=updatebook()>上架图书</button></div>
-    </center>
-    </div>
+        <div id="button" ><a class="button black" onclick=updatebook()>上架图书</a></div>
+
+    </center></div>
 </div>
 <script type="text/javascript">
     function updatebook() {
@@ -78,7 +83,7 @@
                 author: document.getElementById("author").value,
                 shelfId: document.getElementById("shelfId").value,
                 synopsis:document.getElementById("synopsis").value,
-                typeId: document.getElementById("type").value,
+                typeId: document.getElementById("typeId").value,
                 remain:document.getElementById("remain").value,
                 isbn:document.getElementById("isbn").value,
             },
@@ -96,9 +101,7 @@
         });
 
     }
-    function jumptomanage() {
-        window.open("guanli.html","_self")
-    }
+
 
 </script>
 </body>

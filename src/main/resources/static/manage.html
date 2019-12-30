@@ -4,49 +4,53 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-<div>
-    管理系统
-</div>
-<hr/>
-<div>
-    <table>
-        <tr>
-            <td><button>用户管理</button></td>
-        </tr>
-        <tr>
-            <td><button>图书管理</button></td>
-        </tr>
-        <tr>
-            <td><button>处理还书</button></td>
-        </tr>
-        <tr>
-            <td><button id="addbook" onclick="jumptoadd()">上架图书</button></td>
-        </tr>
-    </table>
-</div>
-<div id="manage">
-    <h2>图书管理</h2>
-    <span>请输入要查询的图书或作者</span>
-    <input type="text" id="keyword"/>
-    <button onclick="query()">图书搜索</button>
-    <center>
-        <table id="booklist" border="1" hidden>
-            <thead>
-            <tr>
-                <th>书名</th>
-                <th>作者</th>
-                <th>书架号</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody id="tbdata">
-            </tbody>
-        </table>
-    </center>
 
+<div class="header">
+    <h1>欢迎使用管理员系统</h1>
 </div>
+
+<div class="navbar">
+    <a href="index.html">返回主页</a>
+    <a href="#" class="right">帮助</a>
+    <a href="index.html" class="right">注销</a>
+</div>
+<body>
+
+<ul>
+    <li><a class="active" href="manage.html">查询图书信息</a></li>
+    <li><a href="usersearch.html">查询读者信息</a></li>
+    <li><a href="addbook.html">添加图书</a></li>
+    <li><a href="queryuserborrow.html">查询读者借阅</a></li>
+</ul>
+
+<div style="margin-left:15%;padding:1px 16px;height:1000px;">
+<center><br/><br/>
+    <div id="manage">
+        <p>请输入要查询的图书或作者:</p>
+        <input type="text" id="keyword"/>
+        <br/><br/>
+        <a class="button black" onclick="query()">图书搜索</a>
+        <br/><br/>
+            <table id="booklist" border="1" hidden width=70%>
+                <thead>
+                <tr>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>书架号</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tbdata">
+                </tbody>
+            </table>
+
+    </div>
+</center>
+</div>
+
+
 <script type="text/javascript">
     function query() {
         var keyword=$("#keyword").val();
@@ -66,7 +70,9 @@
     function createlist(data) {
         var str="";
         for(var i=0;i<data.length;i++){
-            str += "<tr><td>"+data[i].name+"</td><td>"+data[i].author+"</td><td>"+data[i].shelfId+"</td><td>"+"<a class=\"button\" onclick=\"gotodetail("+data[i].bookId+")\">图书信息修改</a>"+"</td></tr>";
+            str += "<tr><td>"+data[i].name+"</td><td>"+data[i].author+"</td><td>"+
+                data[i].shelfId+"</td><td width=18%>"+"<a class=\"button \" onclick=\"gotodetail("+data[i].bookId+
+                ")\">图书信息修改</a>"+"</td></tr>";
             console.log(str)
         }
         $("#tbdata").html(str);
@@ -76,9 +82,7 @@
         document.cookie="bookId="+bookid
         window.open("bookinfomanage.html")
     }
-    function jumptoadd() {
-        window.open("addbook.html","_self");
-    }
+
 </script>
 </body>
 </html>
