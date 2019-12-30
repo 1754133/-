@@ -34,6 +34,11 @@ public class BorrowController {
         return borrowService.ifBorrowed(bookId, userId);
     }
 
+    @GetMapping(value = "/borrowinfo/email/{email}")
+    public List<Map<String, Object>> getBorrowInfoByEmail(@PathVariable("email") String email){
+        return borrowService.getBorrowInfoByEmail(email);
+    }
+
     @PutMapping(value = "/borrowinfo/{id}")
     public void renew(@PathVariable("id") int id, @RequestParam String shReturnDate) throws ParseException {
         borrowService.renew(id, shReturnDate);

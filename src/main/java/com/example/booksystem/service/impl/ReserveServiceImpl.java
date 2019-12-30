@@ -53,4 +53,11 @@ public class ReserveServiceImpl implements ReserveService {
         }
         return reservationMapList;
     }
+
+    public boolean ifReserved(int bookId, int userId){
+        if (reservationMapper.getReservationByBookIdAndUserId(bookId, userId) != null){
+            return true;
+        }
+        return false;
+    }
 }

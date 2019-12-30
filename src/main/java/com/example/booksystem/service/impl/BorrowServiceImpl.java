@@ -60,6 +60,16 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowInfoMapList;
     }
 
+    public List<Map<String, Object>> getBorrowInfoByEmail(String email){
+        User user = userMapper.getByEmail(email);
+        List<BorrowInfo> borrowInfoList = borrowInfoMapper.getBorrowInfoByUserId(user.getId());
+        List<Map<String, Object>> borrowInfoMapList = new ArrayList<>();
+        for (BorrowInfo borrowInfo : borrowInfoList){
+            borrowInfoMapList.add(getBorrowInfoMap1(borrowInfo));
+        }
+        return borrowInfoMapList;
+    }
+
     public boolean ifBorrowed(int bookId, int userId){
         return borrowInfoMapper.getBorrowInfoByBookIdAndUserId(bookId, userId) == null;
     }
@@ -88,6 +98,21 @@ public class BorrowServiceImpl implements BorrowService {
         map.put("borrowDate", borrowInfo.getBorrowDate());
         map.put("shReturnDate", borrowInfo.getShReturnDate());
         map.put("renew", borrowInfo.isRenew());
+        return map;
+    }
+
+    //包装返回结果
+    private Map<String, Object> getBorrowInfoMap1(BorrowInfo borrowInfo){
+        int bookId = borrowInfo.getBookId();
+        Book book = bookMapper.getBookById(bookId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", borrowInfo.getId());
+        map.put("bookId", bookId);
+        map.put("bookName", book.getName());
+        map.put("author", book.getAuthor());
+        map.put("isbn", book.getIsbn());
+        map.put("borrowDate", borrowInfo.getBorrowDate());
+        map.put("shReturnDate", borrowInfo.getShReturnDate());
         return map;
     }
 

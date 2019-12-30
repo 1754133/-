@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>queryuserborrow</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<div class="header">
+    <h1>欢迎使用图书管理系统</h1>
+</div>
+
+<div class="navbar">
+    <a href="index.html">返回主页</a>
+    <a href="#" class="right">帮助</a>
+    <a href="index.html" class="right">注销</a>
+</div>
+<body>
+<ul>
+    <li><a href="#">。。。</a></li>
+    <li><a href="#">。。。</a></li>
+    <li><a href="#">。。。</a></li>
+    <li><a href="#">。。。</a></li>
+</ul>
+
+<div style="margin-left:15%;padding:1px 16px;height:1000px;"><br/>
+    <center><h5>请输入用户邮箱:</h5><br/>
+        <input style="width:400px;height:40px" type="email" value="" id="email" /><br/><br/>
+        <a class="button black" onclick="query()">查找</a>
+        <br/><br/>
+        <table id="borrowlist" border="1" hidden width=70%>
+            <thead>
+            <tr>
+                <th>书名</th>
+                <th>作者</th>
+                <th>ISBN</th>
+                <th>借书时间</th>
+                <th>应还时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="bldata">
+
+            </tbody>
+        </table>
+    </center>
+</div>
+<script type="text/javascript">
+
+    function query() {
+        var email=$("#email").val();
+        console.log(email)
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/borrow/borrowinfo/email/"+email,
+            dataType:"json",
+            success:function (result) {
+                console.log(result)
+                createlist(result)
+            }
+
+        })
+    }
+
+    function createlist(data) {
+        var str="";
+        for(var i=0;i<data.length;i++){
+            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+"</center></td><td><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+data[i].shReturnDate+"</center></td><td width=16%><center>"+"<a class=\"button\" onclick=\"gotoreturn()\">处理还书</a>"+"</center></td></tr>";
+        }
+        $("#bldata").html(str);
+        $("#borrowlist").show();
+    }
+    function gotoreturn() {
+
+    }
+</script>
+</body>
+</html>

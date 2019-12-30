@@ -17,4 +17,7 @@ public interface ReserveService {
 
     //根据读者id查看预定
     List<Map<String, Object>> getReservationByUserId(int userId);
+
+    //检查某本书是否被预约
+    boolean ifReserved(int bookId, int userId);
 }

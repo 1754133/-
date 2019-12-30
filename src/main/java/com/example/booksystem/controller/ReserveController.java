@@ -24,6 +24,11 @@ public class ReserveController {
         return reserveService.getReservationByUserId(userId);
     }
 
+    @GetMapping(value = "/{bookId}/{userId}")
+    public boolean ifReserved(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
+        return reserveService.ifReserved(bookId, userId);
+    }
+
     @DeleteMapping(value = "/{bookId}")
     public void deleteReservation(@PathVariable("bookId") int bookId){
         reserveService.deleteReservation(bookId);

@@ -17,6 +17,9 @@ public interface BorrowService {
     //用户查看自己的借阅信息
     List<Map<String, Object>> getBorrowInfoByUserId(int userId);
 
+    //管理员查看用户借阅信息
+    List<Map<String, Object>> getBorrowInfoByEmail(String email);
+
     //检查是否已有借阅信息
     boolean ifBorrowed(int bookId, int userId);
 
