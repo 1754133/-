@@ -62,7 +62,9 @@
     function createlist(data) {
         var str="";
         for(var i=0;i<data.length;i++){
-            str += "<tr><td><center>"+data[i].name+"</center></td><td><center>"+data[i].author+"</center></td><td><center>"+data[i].shelfId+"</center></td><td width=16%><center>"+"<a class=\"button\" onclick=\"gotodetail("+data[i].bookId+")\">前往详情页</a>"+"</center></td></tr>";
+            str += "<tr><td><center>"+data[i].name+"</center></td><td><center>"+data[i].author+
+                "</center></td><td><center>"+data[i].shelfId+"</center></td><td width=16%><center>"+
+                "<a class=\"button\" onclick=\"gotodetail("+data[i].bookId+")\">前往详情页</a>"+"</center></td></tr>";
             console.log(str)
         }
         $("#tbdata").html(str);

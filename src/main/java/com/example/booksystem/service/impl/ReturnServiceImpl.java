@@ -33,12 +33,6 @@ public class ReturnServiceImpl implements ReturnService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         returnInfoMapper.addReturnInfo(borrowInfo.getBookId(), borrowInfo.getUserId(), borrowInfo.getBorrowDate(), borrowInfo.getShReturnDate(), simpleDateFormat.format(new Date()), condition, fine, remark);
         borrowInfoMapper.deleteBorrowInfo(borrowId);
-        List<Reservation> reservationList = reservationMapper.getReservationByBookId(borrowInfo.getBookId());
-        if (reservationList.size() != 0){
-            int userId = reservationList.get(0).getUserId();
-            borrowService.borrowBook(borrowInfo.getBookId(), userId);
-            reservationMapper.deleteReservation(reservationList.get(0).getId());
-        }
     }
 
 }

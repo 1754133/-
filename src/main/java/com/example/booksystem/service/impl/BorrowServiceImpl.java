@@ -29,9 +29,9 @@ public class BorrowServiceImpl implements BorrowService {
     public void borrowBook(int bookId, int userId){
         Book book = bookMapper.getBookById(bookId);
         int remain = book.getRemain();
-        remain--;
-        bookMapper.updateBookRemain(bookId, remain);
-
+        System.out.println(remain);
+        bookMapper.updateBookRemain(bookId, --remain);
+        System.out.println(remain);
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         Date date1 = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -40,6 +40,7 @@ public class BorrowServiceImpl implements BorrowService {
         gregorianCalendar.add(2, +1);
         String shReturnDate = simpleDateFormat.format(gregorianCalendar.getTime());
         borrowInfoMapper.addBorrowInfo(bookId, userId, borrowDate, shReturnDate, true);
+        System.out.println(remain);
     }
 
     public List<Map<String, Object>> getBorrowInfo(){

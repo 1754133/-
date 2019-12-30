@@ -40,7 +40,8 @@ public class BookController {
     }
 
     @PutMapping(value = "/remain/{bookId}")
-    public void updateRemain(@PathVariable("bookId") int bookId){
+    public boolean updateRemain(@PathVariable("bookId") int bookId){
         bookService.updateRemain(bookId);
+        return true;
     }
 }

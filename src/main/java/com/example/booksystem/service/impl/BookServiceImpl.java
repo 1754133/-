@@ -59,6 +59,7 @@ public class BookServiceImpl implements BookService {
     public void updateRemain(int id){
         int remain = bookMapper.getBookById(id).getRemain();
         bookMapper.updateBookRemain(id, ++remain);
+        System.out.println("库存为" + bookMapper.getBookById(id).getRemain());
     }
 
     //封装book详细的结果

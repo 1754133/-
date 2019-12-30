@@ -9,25 +9,88 @@
 <body>
 <div>
 <center>
+    <br/><br/>
+    <p>请选择图书状态:</p>
 <div class="select">
-    <select name="cars">
-        <option value="normal" selected>正常</option>
+    <select id="condition">
+        <option value="normal">正常</option>
         <option value="lost">遗失</option>
         <option value="broke">严重破损</option>
         <option value="smeared">有胡乱涂抹</option>
-        <option value="other">其他</option>
     </select>
 </div><br/><br/>
-    <input style="width:200px;height:40px" type="number" value=0 id="fine" />
+    <p>请输入罚款金额（默认为0）:</p>
+    <input style="width:100px;height:30px" type="number" value=0 id="fine" />
+<br/>
+    <p>备注:</p>
+    <textarea id="remark" rows="8" cols="45"></textarea>
 <br/><br/>
-    <input style="">
-
+    <a class="button black" onclick="returnbook()">归还</a>
 </center>
 </div>
 
 
 <script type="text/javascript">
+    var bookId = getCookie("bookId")
+    var borrowId=getCookie("borrowId")
+    function getCookie(cname){
+        var name= cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c=ca[i].trim();
+            if(c.indexOf(name)==0)
+                return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    function returnbook() {
+        var condition=document.getElementById("condition").value
+        var fine=document.getElementById("fine").value
+        var remark=document.getElementById("remark").value
+        if(condition=="normal"||condition=="smeared"){
+            AddReturnInfo(condition,fine,remark)
+            UpdateRemain()
+        }
+        else{
+            AddReturnInfo(condition,fine,remark)
+        }
+        alert("处理完成。")
+        window.open("queryuserborrow.html","self")
+    }
 
+    function AddReturnInfo(condition,fine,remark) {
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8080/returnInfo",
+            data:{
+                borrowId:borrowId,
+                condition:condition,
+                fine:fine,
+                remark:remark
+            },
+            dataType:"json",
+            Async:false
+        })
+    }
+    function UpdateRemain() {
+        $.ajax({
+            type:"PUT",
+            url:"http://localhost:8080/books/remain/"+bookId,
+            dataType:"json",
+            success:function(result){
+                console.log(result)
+                DeleteReservation()
+            }
+        })
+    }
+    function DeleteReservation() {
+        $.ajax({
+            type:"DELETE",
+            url:"http://localhost:8080/reservation/"+bookId,
+            dataType:"json",
+            Async:false
+        })
+    }
 </script>
 </body>
 </html>

@@ -66,13 +66,18 @@
     function createlist(data) {
         var str="";
         for(var i=0;i<data.length;i++){
-            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+"</center></td><td><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+data[i].shReturnDate+"</center></td><td width=16%><center>"+"<a class=\"button\" onclick=\"gotoreturn()\">处理还书</a>"+"</center></td></tr>";
+            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+
+                "</center></td><td><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+
+                data[i].shReturnDate+"</center></td><td width=16%><center>"+"<a class=\"button\" onclick=\"gotoreturn("+data[i].id+","+
+                data[i].bookId+")\">处理还书</a>"+"</center></td></tr>";
         }
         $("#bldata").html(str);
         $("#borrowlist").show();
     }
-    function gotoreturn() {
-
+    function gotoreturn(borrowId,bookId) {
+        document.cookie="borrowId="+borrowId
+        document.cookie="bookId="+bookId
+        window.open("returnbook.html","_self")
     }
 </script>
 </body>
