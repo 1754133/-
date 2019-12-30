@@ -28,7 +28,8 @@
 </ul>
 
 <div style="margin-left:15%;padding:1px 16px;height:1000px;">
-    <center><p>以下图书即将到期，请及时到图书馆还书!</p>
+    <center>
+        <div id="shReturn" hidden><p>以下图书即将到期，请及时到图书馆还书!</p>
         <table id="borrowlist" border="1" width=90%>
         <thead>
         <tr>
@@ -42,7 +43,7 @@
         <tbody id="bldata">
 
         </tbody>
-    </table></center>
+        </table></div></center>
 
 </div>
 
@@ -53,6 +54,10 @@
         url:"http://localhost:8080/borrow/borrowinfo/notice/" + id,
         dateType:"json",
         success:function (result) {
+            if(result.length!=0)
+            {
+                $("#shReturn").show();
+            }
             createlist(result)
         }
     })
@@ -66,7 +71,7 @@
             console.log(str)
         }
         $("#bldata").html(str);
-        $("#borrowlist").show();
+
     }
 
     function getCookie(cname){
