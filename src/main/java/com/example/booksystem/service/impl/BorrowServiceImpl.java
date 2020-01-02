@@ -7,6 +7,7 @@ import com.example.booksystem.mapper.BookMapper;
 import com.example.booksystem.mapper.BorrowInfoMapper;
 import com.example.booksystem.mapper.UserMapper;
 import com.example.booksystem.service.BorrowService;
+import com.example.booksystem.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,10 @@ public class BorrowServiceImpl implements BorrowService {
     @Autowired
     private UserMapper userMapper;
 
-    public void borrowBook(int bookId, int userId){
+    @Autowired
+    private MailService mailService;
+
+    public void borrowBook(int bookId, int userId, boolean ifReserved){
         Book book = bookMapper.getBookById(bookId);
         int remain = book.getRemain();
         bookMapper.updateBookRemain(bookId, --remain);
@@ -38,6 +42,10 @@ public class BorrowServiceImpl implements BorrowService {
         gregorianCalendar.add(2, +1);
         String shReturnDate = simpleDateFormat.format(gregorianCalendar.getTime());
         borrowInfoMapper.addBorrowInfo(bookId, userId, borrowDate, shReturnDate, true);
+        if (ifReserved){
+            User user = userMapper.getById(userId);
+            mailService.sendReservation(user.getEmail(), book.getName());
+        }
     }
 
     public List<Map<String, Object>> getBorrowInfo(){

@@ -16,7 +16,7 @@ public class BorrowController {
 
     @PostMapping(value = "/borrowinfo")
     public void borrowBook(@RequestParam int bookId, @RequestParam int userId){
-        borrowService.borrowBook(bookId, userId);
+        borrowService.borrowBook(bookId, userId, false);
     }
 
     @GetMapping(value = "/borrowinfo")

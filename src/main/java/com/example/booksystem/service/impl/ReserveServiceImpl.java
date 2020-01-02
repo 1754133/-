@@ -34,7 +34,7 @@ public class ReserveServiceImpl implements ReserveService {
         List<Reservation> reservationList = reservationMapper.getReservationByBookId(bookId);
         if (reservationList.size() != 0){
             int userId = reservationList.get(0).getUserId();
-            borrowService.borrowBook(bookId, userId);
+            borrowService.borrowBook(bookId, userId, true);
             reservationMapper.deleteReservation(reservationList.get(0).getId());
         }
     }

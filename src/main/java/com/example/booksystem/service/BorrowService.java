@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public interface BorrowService {
     //借书
-    void borrowBook(int bookId, int userId);
+    void borrowBook(int bookId, int userId, boolean ifReserved);
 
     //查看借阅信息
     List<Map<String, Object>> getBorrowInfo();
