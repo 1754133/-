@@ -77,7 +77,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public void banUser(@PathVariable("id") int id){
+    public boolean banUser(@PathVariable("id") int id){
         userService.banUser(id);
+        return true;
     }
 }

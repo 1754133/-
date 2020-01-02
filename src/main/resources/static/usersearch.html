@@ -120,9 +120,22 @@
         $.ajax({
             type:"PUT",
             url:"http://localhost:8080/users/"+id,
-            dataType:"json"
+            dataType:"json",
+            success:function (result) {
+                if(result)
+                {
+                    var email=$("#email").val();
+                    $.ajax({
+                        type:"GET",
+                        url:"http://localhost:8080/users/email/" + email,
+                        dateType:"json",
+                        success:function (result) {
+                            createlist(result)
+                        }
+                    })
+                }
+            }
         })
-        location.reload()
     }
 
 </script>
