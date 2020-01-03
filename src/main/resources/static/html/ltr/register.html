@@ -100,7 +100,6 @@
                 }
                 else{
                     alert("邮箱可以使用!");
-                    //var checkcode = $("#checkcode").val();
                     code = result.checkcode;
                     waitTime=30;
                     time(ele);
@@ -130,8 +129,9 @@
         var checkcode = $("#checkcode").val();
         if (code != checkcode){
             alert("请输入正确的验证码!");
-        }
-        else{
+        } else if ($("#password").val() == ""){
+            alert("密码不能为空!")
+        } else{
             var email = $("#email").val();
             var password = $("#password").val();
             $.ajax({
