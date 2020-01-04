@@ -9,7 +9,7 @@ import java.util.Map;
 public interface BookService {
     Map<String, Object> getBookById(int bookId);
 
-    List<Map<String, Object>> getBooksByType(String typeName);
+    List<Map<String, Object>> getBooksByKeywordsAndType(String keywords, int typeId);
 
     List<Map<String, Object>> getBooksByKeywords(String keywords);
     //添加书籍

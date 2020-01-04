@@ -35,7 +35,14 @@ public interface BookMapper {
             @Result(column = "shelf_id", property = "shelfId"),
             @Result(column = "type_id", property = "typeId")
     })
-    List<Book> getBooksByKeywords(String keywords);
+    List<Book> getBooksByKeywords(String value);
+
+    @Select("select * from book where concat(name,author) like '%${value}%' and type_id=#{typeId}")
+    @Results({
+            @Result(column = "shelf_id", property = "shelfId"),
+            @Result(column = "type_id", property = "typeId")
+    })
+    List<Book> getBooksByKeywordsAndTypeId(String value, int typeId);
 
     @Select("select * from book where isbn=#{isbn}")
     @Results({

@@ -14,8 +14,9 @@ public class NotifyController {
     private NotifyService notifyService;
 
     @PostMapping
-    public void addNotification(@RequestParam String content){
+    public boolean addNotification(@RequestParam String content){
         notifyService.addNotification(content);
+        return true;
     }
 
     @GetMapping
@@ -24,7 +25,8 @@ public class NotifyController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteNotification(@PathVariable("id") int id){
+    public boolean deleteNotification(@PathVariable("id") int id){
         notifyService.deleteNotification(id);
+        return true;
     }
 }

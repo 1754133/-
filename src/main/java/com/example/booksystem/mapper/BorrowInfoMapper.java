@@ -61,4 +61,7 @@ public interface BorrowInfoMapper {
 
     @Delete("delete from borrow_info where id=#{id}")
     void deleteBorrowInfo(int id);
+
+    @Delete("delete from borrow_info where user_id=#{userId}")
+    void deleteBorrowInfoByUserId(int userId);
 }

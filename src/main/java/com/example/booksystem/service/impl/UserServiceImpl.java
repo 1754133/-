@@ -1,7 +1,8 @@
 package com.example.booksystem.service.impl;
 
-
 import com.example.booksystem.entity.User;
+import com.example.booksystem.mapper.BorrowInfoMapper;
+import com.example.booksystem.mapper.ReservationMapper;
 import com.example.booksystem.mapper.UserMapper;
 import com.example.booksystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private BorrowInfoMapper borrowInfoMapper;
+
+    @Autowired
+    private ReservationMapper reservationMapper;
 
     public User getUserById(int id) {
         return userMapper.getById(id);
@@ -53,6 +59,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(int id){
+        borrowInfoMapper.deleteBorrowInfoByUserId(id);
+        reservationMapper.deleteReservationByUserId(id);
         userMapper.deleteUser(id);
     }
 

@@ -78,7 +78,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/email")
-    public void sendOverDueMail(@RequestParam String email, @RequestParam String bookName){
+    public boolean sendOverDueMail(@RequestParam String email, @RequestParam String bookName){
         mailService.sendOverDueMail(email, bookName);
+        return true;
     }
 }

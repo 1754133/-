@@ -25,9 +25,13 @@ public class BookServiceImpl implements BookService {
         return getBookMap(book);
     }
 
-    public List<Map<String, Object>> getBooksByType(String typeName){
-        int typeId = typeMapper.getTypeId(typeName);
-        List<Book> bookList = bookMapper.getBooksByType(typeId);
+    public List<Map<String, Object>> getBooksByKeywordsAndType(String keywords, int typeId){
+        List<Book> bookList;
+        if (typeId == 0){
+            bookList = bookMapper.getBooksByKeywords(keywords);
+        }else {
+            bookList = bookMapper.getBooksByKeywordsAndTypeId(keywords, typeId);
+        }
         List<Map<String, Object>> bookMapList = new ArrayList<>();
         for (Book book : bookList){
             bookMapList.add(getBookMap(book));
