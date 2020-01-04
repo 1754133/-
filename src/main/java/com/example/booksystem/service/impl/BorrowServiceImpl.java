@@ -76,6 +76,17 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowInfoMapList;
     }
 
+    public List<Map<String, Object>> getOverDueBorrowInfo(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String date = simpleDateFormat.format(new Date());
+        List<BorrowInfo> borrowInfoList = borrowInfoMapper.getOverDueBorrowInfo(date);
+        List<Map<String, Object>> borrowInfoMapList = new ArrayList<>();
+        for (BorrowInfo borrowInfo : borrowInfoList){
+            borrowInfoMapList.add(getBorrowInfoMap(borrowInfo));
+        }
+        return borrowInfoMapList;
+    }
+
     public boolean ifBorrowed(int bookId, int userId){
         return borrowInfoMapper.getBorrowInfoByBookIdAndUserId(bookId, userId) == null;
     }

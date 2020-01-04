@@ -23,6 +23,15 @@ public interface BorrowInfoMapper {
     })
     List<BorrowInfo> getBorrowInfo();
 
+    @Select("select * from borrow_info where sh_return_date<#{date}")
+    @Results({
+            @Result(column = "book_id", property = "bookId"),
+            @Result(column = "user_id", property = "userId"),
+            @Result(column = "borrow_date", property = "borrowDate"),
+            @Result(column = "sh_return_date", property = "shReturnDate"),
+    })
+    List<BorrowInfo> getOverDueBorrowInfo(String date);
+
     @Select("select * from borrow_info where book_id=#{bookId} and user_id=#{userId}")
     @Results({
             @Result(column = "book_id", property = "bookId"),

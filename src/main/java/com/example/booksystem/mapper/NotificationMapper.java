@@ -1,6 +1,7 @@
 package com.example.booksystem.mapper;
 
 import com.example.booksystem.entity.Notification;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -16,4 +17,7 @@ public interface NotificationMapper {
 
     @Select("select * from notification")
     List<Notification> getNotification();
+
+    @Delete("delete from notification where id=#{id}")
+    void deleteNotification(int id);
 }

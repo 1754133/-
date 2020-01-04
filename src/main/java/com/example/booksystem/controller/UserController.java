@@ -76,4 +76,9 @@ public class UserController {
         userService.banUser(id);
         return true;
     }
+
+    @PostMapping(value = "/email")
+    public void sendOverDueMail(@RequestParam String email, @RequestParam String bookName){
+        mailService.sendOverDueMail(email, bookName);
+    }
 }

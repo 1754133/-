@@ -26,4 +26,6 @@ public interface BorrowService {
     void renew(int id, String shReturnDate) throws ParseException;
 
     List<Map<String, Object>> checkOverdue(int userId) throws ParseException;
+
+    List<Map<String, Object>> getOverDueBorrowInfo();
 }

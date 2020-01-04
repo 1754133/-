@@ -42,4 +42,15 @@ public class MailServiceImpl implements MailService {
         mailSender.send(simpleMailMessage);
         logger.info("邮件发送成功！");
     }
+
+    public void sendOverDueMail(String email, String bookName){
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        String message = "您在图书馆所借阅的图书：《" + bookName + "》已经超过归还期限，为避免影响您的账号的后续使用，请尽快前往图书馆归还书籍。";
+        simpleMailMessage.setFrom(from);
+        simpleMailMessage.setTo(email);
+        simpleMailMessage.setSubject("图书超期通知");
+        simpleMailMessage.setText(message);
+        mailSender.send(simpleMailMessage);
+        logger.info("邮件发送成功！");
+    }
 }

@@ -7,4 +7,6 @@ public interface MailService {
     String sendCheckCode(String email);
 
     void sendReservation(String email, String bookName);
+
+    void sendOverDueMail(String email, String bookName);
 }

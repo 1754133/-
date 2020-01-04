@@ -20,14 +20,11 @@ public class NotifyServiceImpl implements NotifyService {
         notificationMapper.addNotification(content, date);
     }
 
-    public List<Map<String, Object>> getNotification(){
-        List<Notification> notificationList = notificationMapper.getNotification();
-        List<Map<String, Object>> notificationMapList = new ArrayList<>();
-        for (Notification notification : notificationList){
-            Map<String, Object> map = new HashMap<>();
-            map.put("content", notification.getContent());
-            map.put("date", notification.getDate());
-        }
-        return notificationMapList;
+    public List<Notification> getNotification(){
+        return notificationMapper.getNotification();
+    }
+
+    public void deleteNotification(int id){
+        notificationMapper.deleteNotification(id);
     }
 }
