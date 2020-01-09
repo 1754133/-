@@ -21,6 +21,8 @@ public interface UserService {
 
     void modifyUserInformation(int id, String name, String sex, int age, String telephone, String speciality);
 
+    boolean modifyPassword(int id, String oldPassword, String newPassword);
+
     void deleteUser(int id);
 
     void banUser(int id);

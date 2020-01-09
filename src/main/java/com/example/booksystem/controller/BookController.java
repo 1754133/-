@@ -18,7 +18,7 @@ public class BookController {
     public Map<String, Object> getBookById(@PathVariable(value = "bookId") int bookId){
         return bookService.getBookById(bookId);
     }
-//new
+
     @GetMapping(value = "/{keywords}/{typeId}")
     public List<Map<String, Object>> getBooksByKeywordAndType(@PathVariable(value = "keywords") String keywords, @PathVariable(value = "typeId") int typeId){
         return bookService.getBooksByKeywordsAndType(keywords, typeId);

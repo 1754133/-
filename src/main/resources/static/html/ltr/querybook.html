@@ -111,7 +111,7 @@
                             <div class="card-body">
                                 <h5 class="card-title m-b-0">
 
-                                    <input style="width: 400px" type="text" class="form-control" id="keyword" placeholder="请输入关键词（书名、作者）"/>
+                                    <input style="width: 55%" type="text" class="form-control" id="keyword" placeholder="请输入关键词（书名、作者）"/>
                                     <br/>
                                     <select id="typeId"class="select2 form-control custom-select" style="width: 20%; height:36px;">
                                         <option value="0">全部分类</option>
@@ -172,15 +172,19 @@
             function query() {
                 var typeid=document.getElementById("typeId").value;
                 var keyword=$("#keyword").val();
-                console.log(keyword)
-                $.ajax({
-                    type:"GET",
-                    url:"http://localhost:8080/books/"+ keyword+"/"+typeid,
-                    dateType:"json",
-                    success:function (result) {
-                        createlist(result)
-                    }
-                })
+                if(keyword==''){
+                    alert("输入框不能为空")
+                }
+                else{
+                    $.ajax({
+                        type:"GET",
+                        url:"http://localhost:8080/books/"+ keyword+"/"+typeid,
+                        dateType:"json",
+                        success:function (result) {
+                            createlist(result)
+                        }
+                    })
+                }
             }
 
         function createlist(data) {

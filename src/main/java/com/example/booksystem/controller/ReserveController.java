@@ -15,8 +15,9 @@ public class ReserveController {
     private ReserveService reserveService;
 
     @PostMapping
-    public void addReservation(@RequestParam int bookId, @RequestParam int userId){
+    public boolean addReservation(@RequestParam int bookId, @RequestParam int userId){
         reserveService.addReservation(bookId, userId);
+        return true;
     }
 
     @GetMapping(value = "/{userId}")
@@ -32,5 +33,11 @@ public class ReserveController {
     @DeleteMapping(value = "/{bookId}")
     public void deleteReservation(@PathVariable("bookId") int bookId){
         reserveService.deleteReservation(bookId);
+    }
+
+    @DeleteMapping(value = "/{bookId}/{userId}")
+    public boolean cancelReservation(@PathVariable("bookId") int bookId, @PathVariable("userId") int userId){
+        reserveService.cancelReservation(bookId, userId);
+        return true;
     }
 }

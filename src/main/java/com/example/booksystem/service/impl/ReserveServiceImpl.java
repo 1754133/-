@@ -39,6 +39,11 @@ public class ReserveServiceImpl implements ReserveService {
         }
     }
 
+    //取消预定
+    public void cancelReservation(int bookId, int userId){
+        reservationMapper.deleteReservationByBookIdAndUserId(bookId, userId);
+    }
+
     //根据读者id查看预定
     public List<Map<String, Object>> getReservationByUserId(int userId){
         List<Reservation> reservationList = reservationMapper.getReservationByUserId(userId);

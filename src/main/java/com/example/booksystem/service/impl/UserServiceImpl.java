@@ -68,4 +68,12 @@ public class UserServiceImpl implements UserService {
         boolean ifBanned = !userMapper.getById(id).isIfBanned();
         userMapper.banUser(id, ifBanned);
     }
+
+    public boolean modifyPassword(int id, String oldPassword, String newPassword){
+        if (userMapper.getById(id).getPassword().equals(oldPassword)){
+            userMapper.modifyPassword(id, newPassword);
+            return true;
+        }
+        return false;
+    }
 }

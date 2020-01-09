@@ -1,10 +1,6 @@
 package com.example.booksystem.controller;
 
-
-import com.example.booksystem.entity.Administrator;
-import com.example.booksystem.entity.User;
 import com.example.booksystem.service.AdministratorService;
-import com.example.booksystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -18,6 +18,9 @@ public interface ReservationMapper {
     @Delete("delete from reservation where user_id=#{userId}")
     void deleteReservationByUserId(int userId);
 
+    @Delete("delete from reservation where book_id=#{bookId} and user_id=#{userId}")
+    void deleteReservationByBookIdAndUserId(int bookId, int userId);
+
     @Select("select * from reservation where book_id=#{bookId}")
     @Results({
             @Result(column = "book_id", property = "bookId"),

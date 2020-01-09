@@ -2,9 +2,7 @@ package com.example.booksystem.service.impl;
 
 import com.example.booksystem.entity.Book;
 import com.example.booksystem.mapper.BookMapper;
-import com.example.booksystem.mapper.BorrowInfoMapper;
 import com.example.booksystem.mapper.TypeMapper;
-import com.example.booksystem.mapper.UserMapper;
 import com.example.booksystem.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -176,16 +176,15 @@
         }
         return "";
     }
-    console.log(bookId)
-    console.log(userId)
     var canborrow
     var isreserved
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/borrow/borrowinfo/"+bookId+"/"+userId,
         dataType:"json",
+        async:false,
         success:function (result) {
-            console.log(result)
+
             if(result==false){
                 canborrow=0
             }
@@ -199,6 +198,7 @@
         type:"GET",
         url:"http://localhost:8080/reservation/"+bookId+"/"+userId,
         dataType:"json",
+        Async:false,
         success:function (result) {
             console.log(result)
             if(result){
@@ -213,8 +213,8 @@
         type:"GET",
         url:"http://localhost:8080/books/" + bookId,
         dataType:"json",
+        Async:false,
         success:function (result) {
-            console.log(result)
             document.getElementById("bookname").innerText = result.name
             document.getElementById("author").innerText=result.author
             document.getElementById("press").innerText=result.press

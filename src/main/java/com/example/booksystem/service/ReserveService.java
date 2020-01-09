@@ -1,7 +1,5 @@
 package com.example.booksystem.service;
 
-import com.example.booksystem.entity.Reservation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +12,9 @@ public interface ReserveService {
 
     //删除预定
     void deleteReservation(int bookId);
+
+    //取消预定
+    void cancelReservation(int bookId, int userId);
 
     //根据读者id查看预定
     List<Map<String, Object>> getReservationByUserId(int userId);

@@ -82,4 +82,9 @@ public class UserController {
         mailService.sendOverDueMail(email, bookName);
         return true;
     }
+
+    @PutMapping(value = "/password/{id}")
+    public boolean modifyPassword(@PathVariable("id") int id, @RequestParam String oldPassword, @RequestParam String newPassword){
+        return userService.modifyPassword(id, oldPassword, newPassword);
+    }
 }
