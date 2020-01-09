@@ -66,7 +66,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                            <a class="dropdown-item" href="myinfo.html"><i class="ti-user m-r-5 m-l-5"></i> 我的账户</a>
+                            <a class="dropdown-item" href="modifypassword.html"><i class="ti-user m-r-5 m-l-5"></i> 我的账户</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="index.html"><i class="fa fa-power-off m-r-5 m-l-5"></i> 注销</a>
 
@@ -231,7 +231,7 @@
                 var _button="<button type='button' class='btn btn-outline-dark' onclick=\"Reserve("+bookId+")\">预定</button>\n"
             }
             if(result.remain==0&&isreserved==1){
-                var _button="<button type='button' class='btn btn-outline-dark' disabled=\"disabled\">已预约</button>\n"
+                var _button="<button type='button' class='btn btn-outline-dark' onclick=\"CancelReserve("+bookId+","+userId+")\">取消预定</button>\n"
             }
             if(canborrow==1&&result.remain!=0){
                 var _button="<button type='button' class='btn btn-outline-dark' onclick=\"Borrow("+bookId+")\">借书</button>\n"
@@ -240,6 +240,20 @@
             //<button type="button" class="btn btn-outline-dark" onclick="query()">查找</button>
         }
     })
+
+    function CancelReserve(bookId, userId) {
+        $.ajax({
+            type:"DELETE",
+            url:"http://localhost:8080/reservation/"+bookId+"/"+userId,
+            dataType:"json",
+            success:function (result) {
+                if(result){
+                    alert("预定已取消")
+                    location.reload()
+                }
+            }
+        })
+    }
 
     function Borrow(bookId) {
         console.log(bookId)
@@ -252,9 +266,13 @@
                 userId:userId
             },
             dataType:"json",
-            async:false
+            success:function (result) {
+                if(result){
+                    alert("借阅成功")
+                    location.reload();
+                }
+            }
         });
-        location.reload();
     }
 
     function Reserve(bookId) {
@@ -266,9 +284,13 @@
                 userId:userId
             },
             dataType:"json",
-            async:false
+            success:function (result) {
+                if(result){
+                    alert("预订成功")
+                    location.reload();
+                }
+            }
         });
-        location.reload();
     }
 
 </script>
