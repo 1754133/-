@@ -51,7 +51,9 @@ public class ReserveServiceImpl implements ReserveService {
         for (Reservation reservation : reservationList){
             Map<String, Object> map = new HashMap<>();
             Book book = bookMapper.getBookById(reservation.getBookId());
+            map.put("bookId", book.getId());
             map.put("bookName", book.getName());
+            map.put("author", book.getAuthor());
             map.put("isbn", book.getIsbn());
             map.put("reservationDate", reservation.getReservationDate());
             reservationMapList.add(map);

@@ -24,6 +24,7 @@
     <script src="./assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
 </head>
 
 <body>
@@ -99,7 +100,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">我的主页</h4>
+                    <h4 class="page-title">预定图书列表</h4>
                 </div>
             </div>
         </div>
@@ -108,41 +109,20 @@
 
             <div class="row">
                 <div class="col-12">
-
-                    <div class="card">
+                    <div class="card" id="reservationtable">
                         <div class="card-body">
-                            <h5 class="card-title m-b-0">通知：</h5>
-                            <div class="border-top">
-                                <table id="notification" width="90%">
-                                    <thead>
-                                    <th>内容</th>
-                                    <th>发布时间</th>
-                                    </thead>
-                                    <tbody id="ntflist">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="card" id="shReturntable">
-                        <div class="card-body">
-                            <h5 class="card-title">以下图书即将到期或已过期，请及时到图书馆还书!</h5>
                             <div class="table-responsive" >
-                                <table id="borrowlist" class="table table-striped table-bordered">
+                                <table id="reservationlist" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th style="text-align: center">书名</th>
                                         <th style="text-align: center">作者</th>
                                         <th style="text-align: center">ISBN</th>
-                                        <th style="text-align: center">借书时间</th>
-                                        <th style="text-align: center">归还期限</th>
+                                        <th style="text-align: center">预定时间</th>
+                                        <th style="text-align: center">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="bldata">
-
                                     </tbody>
 
                                 </table>
@@ -150,71 +130,66 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
 
         </div>
-        <footer class="footer text-center"><br/><br/>All Rights Reserved by Matrix-admin. Designed and Developed by WrapPixel.
+
+        <footer class="footer text-center"><br/><br/><br/><br/>All Rights Reserved by Matrix-admin. Designed and Developed by WrapPixel.
             - Collect from Internet <a target="_blank"></a>
         </footer>
-
-
     </div>
+
 </div>
 
 <script type="text/javascript">
-    $("#shReturntable").hide();
-    var id = getCookie("id");
-    $.ajax({
-        type:"GET",
-        url:"http://localhost:8080/borrow/borrowinfo/notice/" + id,
-        dateType:"json",
-        success:function (result) {
-            if(result.length!=0)
-            {
-                $("#shReturntable").show();
-            }
-            createshreturnlist(result)
-        }
-    })
-
-    $.ajax({
-        type:"GET",
-        url:"http://localhost:8080/notification",
-        dataType:"json",
-        success:function (result) {
-            createnotifylist(result)
-        }
-    })
-
-    function createnotifylist(data) {
-        var str="";
-        for(var i=0;i<10;i++){
-            var j=data.length-1-i;
-            str+="<tr style='height: 50px'><td width='85%'>"+data[j].content+"</td><td width='15%'>"+data[j].date+"</td></tr>";
-            if (j==0){break;}
-        }
-        $("#ntflist").html(str);
-    }
-
-    function createshreturnlist(data) {
-        var str="";
-        for(var i=0;i<data.length;i++){
-            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+data[i].author+
-                "</center></td><td><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+
-                "</center></td><td><center>"+data[i].shReturnDate +"</center></td></tr>";
-        }
-        $("#bldata").html(str);
-    }
-
+    var userId=getCookie("id")
     function getCookie(cname){
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0; i<ca.length; i++) {
-            var c = ca[i].trim();
-            if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+        var name= cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c=ca[i].trim();
+            if(c.indexOf(name)==0)
+                return c.substring(name.length,c.length);
         }
         return "";
+    }
+    $.ajax({
+            type:"GET",
+            url:"http://localhost:8080/reservation/" + userId,
+            dataType:"json",
+            success:function (result) {
+                createlist(result)
+            }
+        }
+    )
+    function createlist(data) {
+        var str="";
+        for(var i=0;i<data.length;i++){
+            str += "<tr><td><center>"+data[i].bookName+"</center></td><td><center>"+
+                data[i].author+"</center></td><td><center>"+data[i].isbn+
+                "</center></td><td><center>"+data[i].reservationDate + "</center></td><td><center>"+
+                "<button type='button' class='btn btn-outline-dark' onclick=\"cancelReservation("+data[i].bookId+")\">取消预定</button>"+"</center></td></tr>";
+        }
+        $("#bldata").html(str);
+        $("#reservationlist").show();
+        $("#reservationlist").DataTable()
+    }
+
+    function cancelReservation(bookId) {
+        alert("您确定要取消预定吗？")
+        $.ajax({
+                type:"DELETE",
+                url:"http://localhost:8080/reservation/" + bookId + "/" + userId,
+                dataType:"json",
+                success:function (result) {
+                    if (result){
+                        location.reload();
+                    }
+                }
+            }
+        )
     }
 </script>
 </body>

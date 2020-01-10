@@ -80,7 +80,6 @@
             },
             dataType:"json",
             success:function(result){
-                console.log(result)
                 if (result){
                     document.cookie="id=" + result.userId + ";path=/";
                     alert("登陆成功!");

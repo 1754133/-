@@ -150,7 +150,6 @@
         url:"http://localhost:8080/notification",
         dataType:"json",
         success:function (result) {
-            console.log(result)
             createnotifylist(result)
         }
     })
@@ -160,7 +159,6 @@
         url:"http://localhost:8080/borrow/borrowinfo/overdue",
         dataType:"json",
         success:function (result) {
-            console.log(result)
             createuserlist(result)
         }
     })

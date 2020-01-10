@@ -26,7 +26,13 @@ public class BookServiceImpl implements BookService {
     public List<Map<String, Object>> getBooksByKeywordsAndType(String keywords, int typeId){
         List<Book> bookList;
         if (typeId == 0){
-            bookList = bookMapper.getBooksByKeywords(keywords);
+            if (keywords.equals("default")){
+                bookList = bookMapper.getAllBooks();
+            }else {
+                bookList = bookMapper.getBooksByKeywords(keywords);
+            }
+        }else if (keywords.equals("default")){
+            bookList = bookMapper.getBooksByType(typeId);
         }else {
             bookList = bookMapper.getBooksByKeywordsAndTypeId(keywords, typeId);
         }

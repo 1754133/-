@@ -140,13 +140,11 @@
         $("#usertable").hide();
     function query() {
         var email=$("#email").val();
-        console.log(email)
         $.ajax({
             type:"GET",
             url:"http://localhost:8080/users/email/" + email,
             dateType:"json",
             success:function (result) {
-                console.log(result)
                 if(result=="")
                 {
                     alert("该用户不存在。")

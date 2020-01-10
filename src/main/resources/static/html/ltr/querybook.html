@@ -65,7 +65,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                            <a class="dropdown-item" href="modifypassword.html"><i class="ti-user m-r-5 m-l-5"></i> 我的账户</a>
+                            <a class="dropdown-item" href="modifypassword.html"><i class="ti-user m-r-5 m-l-5"></i> 修改密码</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="index.html"><i class="fa fa-power-off m-r-5 m-l-5"></i> 注销</a>
 
@@ -88,6 +88,7 @@
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="querybook.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">查询图书信息</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="myborrow.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">我的借阅信息</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="borrowhistory.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">我的借阅历史</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="myreservation.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">我的预定</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -140,6 +141,7 @@
                                                 <th style="text-align: center">书名</th>
                                                 <th style="text-align: center">作者</th>
                                                 <th style="text-align: center">书架号</th>
+                                                <th style="text-align: center">库存</th>
                                                 <th style="text-align: center">操作</th>
                                             </tr>
                                         </thead>
@@ -173,18 +175,16 @@
                 var typeid=document.getElementById("typeId").value;
                 var keyword=$("#keyword").val();
                 if(keyword==''){
-                    alert("输入框不能为空")
+                    keyword = "default"
                 }
-                else{
-                    $.ajax({
-                        type:"GET",
-                        url:"http://localhost:8080/books/"+ keyword+"/"+typeid,
-                        dateType:"json",
-                        success:function (result) {
-                            createlist(result)
-                        }
-                    })
-                }
+                $.ajax({
+                    type:"GET",
+                    url:"http://localhost:8080/books/"+ keyword+"/"+typeid,
+                    dateType:"json",
+                    success:function (result) {
+                        createlist(result)
+                    }
+                })
             }
 
         function createlist(data) {
@@ -196,6 +196,7 @@
                 "                                                <th style=\"text-align: center\">书名</th>\n" +
                 "                                                <th style=\"text-align: center\">作者</th>\n" +
                 "                                                <th style=\"text-align: center\">书架号</th>\n" +
+                "                                                <th style=\"text-align: center\">库存</th>" +
                 "                                                <th style=\"text-align: center\">操作</th>\n" +
                 "                                            </tr>\n" +
                 "                                        </thead>\n" +
@@ -208,7 +209,7 @@
             $("#booktb").html(str2);
             for(var i=0;i<data.length;i++){
                 str += "<tr><td><center>"+data[i].name+"</center></td><td><center>"+data[i].author+
-                    "</center></td><td><center>"+data[i].shelfId+"</center></td><td width=16%><center>"+
+                    "</center></td><td><center>"+data[i].shelfId+"</center></td><td><center>"+data[i].remain+"</center></td><td width=16%><center>"+
                     "<button type='button' class='btn btn-outline-dark' onclick=\"gotodetail("+data[i].bookId+")\">前往详情页</button>"+"</center></td></tr>";
             }
             $("#tbdata").html(str);

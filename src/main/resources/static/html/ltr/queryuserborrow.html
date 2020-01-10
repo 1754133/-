@@ -141,7 +141,6 @@
             url:"http://localhost:8080/borrow/borrowinfo/email/"+email,
             dataType:"json",
             success:function (result) {
-                console.log(result)
                 createlist(result)
             }
 
@@ -155,7 +154,6 @@
                 "</center></td><td><center>"+data[i].isbn+"</center></td><td><center>"+data[i].borrowDate+"</center></td><td><center>"+
                 data[i].shReturnDate+"</center></td><td width=16%><center>"+"<button type='button' class='btn btn-outline-dark' onclick=\"gotoreturn("+data[i].id+","+
                 data[i].bookId+")\">处理还书</button>"+"</center></td></tr>";
-            //<button type='button' class='btn btn-outline-dark' onclick=\"gotodetail("+data[i].bookId+")\">
         }
         $("#bldata").html(str);
         $("#borrowlist").show();

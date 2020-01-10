@@ -160,7 +160,6 @@
         url:"http://localhost:8080/books/" + bookId,
         dataType:"json",
         success:function (result) {
-            console.log(result)
             document.getElementById("bookname").value=result.name
             document.getElementById("author").value=result.author
             document.getElementById("press").value=result.press
